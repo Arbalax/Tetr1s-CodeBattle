@@ -1,9 +1,15 @@
 package com.codenjoy.dojo.tetris.client;
 
-import static java.util.stream.Collectors.toList;
+import com.codenjoy.dojo.client.AbstractJsonSolver;
+import com.codenjoy.dojo.client.WebSocketRunner;
+import com.codenjoy.dojo.services.Command;
+import com.codenjoy.dojo.services.Dice;
+import com.codenjoy.dojo.services.RandomDice;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 /*-
  * #%L
@@ -26,12 +32,6 @@ import java.util.List;
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
-
-import com.codenjoy.dojo.client.AbstractJsonSolver;
-import com.codenjoy.dojo.client.WebSocketRunner;
-import com.codenjoy.dojo.services.Command;
-import com.codenjoy.dojo.services.Dice;
-import com.codenjoy.dojo.services.RandomDice;
 
 /**
  * User: your name
@@ -56,7 +56,7 @@ public class YourSolver extends AbstractJsonSolver<Board> {
 
     private List<Command> getAnswerList(Board board) {
         System.out.println(board.getGlass().getAt(board.getCurrentFigurePoint()));
-        List<Command> result = new ArrayList<Command>();
+        List<Command> result = new ArrayList<>();
         result.add(Command.LEFT);
         result.add(Command.random(dice));
         result.add(Command.ROTATE_CLOCKWISE_180);
@@ -68,7 +68,6 @@ public class YourSolver extends AbstractJsonSolver<Board> {
         WebSocketRunner.runClient(
                 // скопируйте сюда адрес из браузера, на который перейдете после регистрации/логина
                 "http://codebattle2020.westeurope.cloudapp.azure.com/codenjoy-contest/board/player/b777ine3y0mz8ntv8hru?code=5352453488097993399",
-//                "http://localhost:8080/codenjoy-contest/board/player/ziwpjz46y4z5567k7uup?code=3867579515136108220&gameName=tetris",
                 new YourSolver(new RandomDice()),
                 new Board());
     }
