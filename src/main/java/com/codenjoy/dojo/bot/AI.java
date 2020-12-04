@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class AI {
 
@@ -116,7 +115,7 @@ public class AI {
         return priority;
     }
 
-    public Result calcO(int[][] glass) throws InterruptedException {
+    public Result calcO(int[][] glass) {
 
         HashMap<Double, Pair<Integer, Integer>> resultMap = new HashMap<>();
 
@@ -160,7 +159,6 @@ public class AI {
 
                     double priority = calcPriority(newArray);
 
-                    TimeUnit.SECONDS.sleep(1);
 
                     resultMap.put(priority, new Pair<>(i, j));
 
@@ -195,7 +193,6 @@ public class AI {
 
                     double priority = calcPriority(newArray);
 
-                    TimeUnit.SECONDS.sleep(1);
 
                     resultMap.put(priority, new Pair<>(i, j));
 
@@ -218,7 +215,7 @@ public class AI {
         return result;
     }
 
-    public Result calcI(int[][] glass) throws InterruptedException {
+    public Result calcI(int[][] glass) {
 
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation0 = new HashMap<>();
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation1 = new HashMap<>();
@@ -257,7 +254,6 @@ public class AI {
 
                     double priority = calcPriority(newArray);
 
-                    TimeUnit.SECONDS.sleep(1);
 
                     resultMapRotation0.put(priority, new Pair<>(i, j));
 
@@ -290,7 +286,6 @@ public class AI {
 
                     double priority = calcPriority(newArray);
 
-                    TimeUnit.SECONDS.sleep(1);
 
                     resultMapRotation0.put(priority, new Pair<>(i, j));
 
@@ -333,7 +328,6 @@ public class AI {
 
                     double priority = calcPriority(newArray);
 
-                    TimeUnit.SECONDS.sleep(1);
 
                     resultMapRotation1.put(priority, new Pair<>(i, j));
 
@@ -369,7 +363,6 @@ public class AI {
 
                     double priority = calcPriority(newArray);
 
-                    TimeUnit.SECONDS.sleep(1);
 
                     resultMapRotation1.put(priority, new Pair<>(i, j));
 
@@ -409,7 +402,7 @@ public class AI {
         return result;
     }
 
-    public Result calcJ(int[][] glass) throws InterruptedException {
+    public Result calcJ(int[][] glass) {
 
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation0 = new HashMap<>();
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation1 = new HashMap<>();
@@ -453,7 +446,6 @@ public class AI {
 
                     double priority = calcPriority(newArray);
 
-                    TimeUnit.SECONDS.sleep(1);
 
                     resultMapRotation0.put(priority, new Pair<>(i, j));
 
@@ -489,7 +481,6 @@ public class AI {
 
                     double priority = calcPriority(newArray);
 
-                    TimeUnit.SECONDS.sleep(1);
 
                     resultMapRotation0.put(priority, new Pair<>(i, j));
 
@@ -531,7 +522,6 @@ public class AI {
 
                     double priority = calcPriority(newArray);
 
-                    TimeUnit.SECONDS.sleep(1);
 
                     resultMapRotation1.put(priority, new Pair<>(i, j));
 
@@ -566,7 +556,6 @@ public class AI {
 
                     double priority = calcPriority(newArray);
 
-                    TimeUnit.SECONDS.sleep(1);
 
                     resultMapRotation1.put(priority, new Pair<>(i, j));
 
@@ -608,7 +597,6 @@ public class AI {
 
                     double priority = calcPriority(newArray);
 
-                    TimeUnit.SECONDS.sleep(1);
 
                     resultMapRotation2.put(priority, new Pair<>(i, j));
 
@@ -642,7 +630,6 @@ public class AI {
 
                     double priority = calcPriority(newArray);
 
-                    TimeUnit.SECONDS.sleep(1);
 
                     resultMapRotation2.put(priority, new Pair<>(i, j));
 
@@ -685,7 +672,6 @@ public class AI {
 
                     double priority = calcPriority(newArray);
 
-                    TimeUnit.SECONDS.sleep(1);
 
                     resultMapRotation3.put(priority, new Pair<>(i, j));
 
@@ -720,7 +706,6 @@ public class AI {
 
                     double priority = calcPriority(newArray);
 
-                    TimeUnit.SECONDS.sleep(1);
 
                     resultMapRotation3.put(priority, new Pair<>(i, j));
 
@@ -770,7 +755,7 @@ public class AI {
         return result;
     }
 
-    public Result calcL(int[][] glass) throws InterruptedException {
+    public Result calcL(int[][] glass) {
 
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation0 = new HashMap<>();
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation1 = new HashMap<>();
@@ -812,7 +797,6 @@ public class AI {
 
                     double priority = calcPriority(newArray);
 
-                    TimeUnit.SECONDS.sleep(1);
 
                     resultMapRotation0.put(priority, new Pair<>(i, j));
 
@@ -846,7 +830,6 @@ public class AI {
 
                     double priority = calcPriority(newArray);
 
-                    TimeUnit.SECONDS.sleep(1);
 
                     resultMapRotation0.put(priority, new Pair<>(i, j));
 
@@ -889,7 +872,6 @@ public class AI {
 
                     double priority = calcPriority(newArray);
 
-                    TimeUnit.SECONDS.sleep(1);
 
                     resultMapRotation1.put(priority, new Pair<>(i, j));
 
@@ -924,7 +906,6 @@ public class AI {
 
                     double priority = calcPriority(newArray);
 
-                    TimeUnit.SECONDS.sleep(1);
 
                     resultMapRotation1.put(priority, new Pair<>(i, j));
 
@@ -966,7 +947,6 @@ public class AI {
 
                     double priority = calcPriority(newArray);
 
-                    TimeUnit.SECONDS.sleep(1);
 
                     resultMapRotation2.put(priority, new Pair<>(i, j));
 
@@ -1000,7 +980,6 @@ public class AI {
 
                     double priority = calcPriority(newArray);
 
-                    TimeUnit.SECONDS.sleep(1);
 
                     resultMapRotation2.put(priority, new Pair<>(i, j));
 
@@ -1044,7 +1023,6 @@ public class AI {
 
                     double priority = calcPriority(newArray);
 
-                    TimeUnit.SECONDS.sleep(1);
 
                     resultMapRotation3.put(priority, new Pair<>(i, j));
 
@@ -1080,7 +1058,6 @@ public class AI {
 
                     double priority = calcPriority(newArray);
 
-                    TimeUnit.SECONDS.sleep(1);
 
                     resultMapRotation3.put(priority, new Pair<>(i, j));
 
@@ -1130,7 +1107,7 @@ public class AI {
         return result;
     }
 
-    public Result calcS(int[][] glass) throws InterruptedException {
+    public Result calcS(int[][] glass) {
 
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation0 = new HashMap<>();
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation1 = new HashMap<>();
@@ -1173,7 +1150,6 @@ public class AI {
 
                     double priority = calcPriority(newArray);
 
-                    TimeUnit.SECONDS.sleep(1);
 
                     resultMapRotation0.put(priority, new Pair<>(i, j));
 
@@ -1209,7 +1185,6 @@ public class AI {
 
                     double priority = calcPriority(newArray);
 
-                    TimeUnit.SECONDS.sleep(1);
 
                     resultMapRotation0.put(priority, new Pair<>(i, j));
 
@@ -1252,7 +1227,6 @@ public class AI {
 
                     double priority = calcPriority(newArray);
 
-                    TimeUnit.SECONDS.sleep(1);
 
                     resultMapRotation1.put(priority, new Pair<>(i, j));
 
@@ -1287,7 +1261,6 @@ public class AI {
 
                     double priority = calcPriority(newArray);
 
-                    TimeUnit.SECONDS.sleep(1);
 
                     resultMapRotation1.put(priority, new Pair<>(i, j));
 
@@ -1314,7 +1287,7 @@ public class AI {
         return result;
     }
 
-    public Result calcZ(int[][] glass) throws InterruptedException {
+    public Result calcZ(int[][] glass) {
 
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation0 = new HashMap<>();
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation1 = new HashMap<>();
@@ -1356,7 +1329,6 @@ public class AI {
 
                     double priority = calcPriority(newArray);
 
-                    TimeUnit.SECONDS.sleep(1);
 
                     resultMapRotation0.put(priority, new Pair<>(i, j));
 
@@ -1391,7 +1363,6 @@ public class AI {
 
                     double priority = calcPriority(newArray);
 
-                    TimeUnit.SECONDS.sleep(1);
 
                     resultMapRotation0.put(priority, new Pair<>(i, j));
 
@@ -1434,7 +1405,6 @@ public class AI {
 
                     double priority = calcPriority(newArray);
 
-                    TimeUnit.SECONDS.sleep(1);
 
                     resultMapRotation1.put(priority, new Pair<>(i, j));
 
@@ -1469,7 +1439,6 @@ public class AI {
 
                     double priority = calcPriority(newArray);
 
-                    TimeUnit.SECONDS.sleep(1);
 
                     resultMapRotation1.put(priority, new Pair<>(i, j));
 
@@ -1496,7 +1465,7 @@ public class AI {
         return result;
     }
 
-    public Result calcT(int[][] glass) throws InterruptedException {
+    public Result calcT(int[][] glass) {
 
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation0 = new HashMap<>();
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation1 = new HashMap<>();
@@ -1540,7 +1509,6 @@ public class AI {
 
                     double priority = calcPriority(newArray);
 
-                    TimeUnit.SECONDS.sleep(1);
 
                     resultMapRotation0.put(priority, new Pair<>(i, j));
 
@@ -1576,7 +1544,6 @@ public class AI {
 
                     double priority = calcPriority(newArray);
 
-                    TimeUnit.SECONDS.sleep(1);
 
                     resultMapRotation0.put(priority, new Pair<>(i, j));
 
@@ -1618,7 +1585,6 @@ public class AI {
 
                     double priority = calcPriority(newArray);
 
-                    TimeUnit.SECONDS.sleep(1);
 
                     resultMapRotation1.put(priority, new Pair<>(i, j));
 
@@ -1652,7 +1618,6 @@ public class AI {
 
                     double priority = calcPriority(newArray);
 
-                    TimeUnit.SECONDS.sleep(1);
 
                     resultMapRotation1.put(priority, new Pair<>(i, j));
 
@@ -1695,7 +1660,6 @@ public class AI {
 
                     double priority = calcPriority(newArray);
 
-                    TimeUnit.SECONDS.sleep(1);
 
                     resultMapRotation2.put(priority, new Pair<>(i, j));
 
@@ -1730,7 +1694,6 @@ public class AI {
 
                     double priority = calcPriority(newArray);
 
-                    TimeUnit.SECONDS.sleep(1);
 
                     resultMapRotation2.put(priority, new Pair<>(i, j));
 
@@ -1772,7 +1735,6 @@ public class AI {
 
                     double priority = calcPriority(newArray);
 
-                    TimeUnit.SECONDS.sleep(1);
 
                     resultMapRotation3.put(priority, new Pair<>(i, j));
 
@@ -1806,7 +1768,6 @@ public class AI {
 
                     double priority = calcPriority(newArray);
 
-                    TimeUnit.SECONDS.sleep(1);
 
                     resultMapRotation3.put(priority, new Pair<>(i, j));
 
