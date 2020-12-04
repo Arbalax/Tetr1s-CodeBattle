@@ -12,6 +12,9 @@ if (changePosition < 0) {
 
 package com.codenjoy.dojo.bot;
 
+import com.codenjoy.dojo.tetris.model.Glass;
+import com.codenjoy.dojo.tetris.model.Layer;
+import com.codenjoy.dojo.tetris.model.Result;
 import javafx.util.*;
 
 import java.util.ArrayList;
@@ -33,6 +36,13 @@ public class AI {
         this.figure = figure;
     }
 
+    public int[][] glassToArray(Glass glass) {
+        int[][] array = new int[18][18];
+        for (Layer layer: glass.getLayers()) {
+
+        }
+        return array;
+    }
 
     private double calcPriority(int[][] newGlass) {
 
@@ -101,11 +111,11 @@ public class AI {
         return priority;
     }
 
-    public List<Integer> calcO(int[][] glass) throws InterruptedException {
+    public Result calcO(int[][] glass) throws InterruptedException {
 
         HashMap<Double, Pair<Integer, Integer>> resultMap = new HashMap<>();
 
-        List<Integer> resultList = new ArrayList<>();
+        Result result = new Result();
 
 //        for(int m=0; m<glass.length; m++) {
 //            for(int n=0; n<glass[m].length; n++)
@@ -197,19 +207,18 @@ public class AI {
         // координаты, на которых должен размещаться левый нижний угол фигуры
         Pair<Integer, Integer> theBestPair = resultMap.get(maxPriority);
 
-        resultList.add(theBestPair.getValue()); // возврат координаты X
+        result.setRotation(0);
+        result.setX(theBestPair.getValue());
 
-        System.out.println("Coord X is: " + resultList.get(0));
-
-        return resultList;
+        return result;
     }
 
-    public List <Integer> calcI(int[][] glass) throws InterruptedException {
+    public Result calcI(int[][] glass) throws InterruptedException {
 
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation0 = new HashMap<>();
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation1 = new HashMap<>();
 
-        List <Integer> resultList = new ArrayList<>();
+        Result result = new Result();
 
         // перебор для вертикального положения фигуры I
 
@@ -383,26 +392,26 @@ public class AI {
         // координаты, на которых должен размещаться левый нижний угол фигуры
         if (maxPriorityRotation0 < maxPriorityRotation1) {
             Pair<Integer, Integer> theBestPair = resultMapRotation0.get(maxPriorityRotation0);
-            resultList.add(0); // без поворота
-            resultList.add(theBestPair.getValue()); // координата X
+            result.setRotation(0); // без поворота
+            result.setX(theBestPair.getValue()); // координата X
         } else {
             Pair<Integer, Integer> theBestPair = resultMapRotation1.get(maxPriorityRotation1);
-            resultList.add(1); // один поворот на 90
-            resultList.add(theBestPair.getValue()); // координата X
+            result.setRotation(1); // один поворот на 90
+            result.setX(theBestPair.getValue()); // координата X
         }
 
-        System.out.println(resultList);
-        return resultList;
+        System.out.println(result);
+        return result;
     }
 
-    public List<Integer> calcJ(int[][] glass) throws InterruptedException {
+    public Result calcJ(int[][] glass) throws InterruptedException {
 
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation0 = new HashMap<>();
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation1 = new HashMap<>();
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation2 = new HashMap<>();
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation3 = new HashMap<>();
 
-        List<Integer> resultList = new ArrayList<>();
+        Result result = new Result();
 
         // перебор для  |
         //             _|
@@ -730,40 +739,40 @@ public class AI {
         // координаты, на которых должен размещаться нижний по возможности левый угол фигуры
         if (maxPriority == maxPriorityRotation0) {
             Pair<Integer, Integer> theBestPair = resultMapRotation0.get(maxPriorityRotation0);
-            resultList.add(0);
-            resultList.add(theBestPair.getValue());
+            result.setRotation(0);
+            result.setX(theBestPair.getValue());
         }
 
         if (maxPriority == maxPriorityRotation1) {
             Pair<Integer, Integer> theBestPair = resultMapRotation1.get(maxPriorityRotation1);
-            resultList.add(1);
-            resultList.add(theBestPair.getValue());
+            result.setRotation(1);
+            result.setX(theBestPair.getValue());
         }
 
         if (maxPriority == maxPriorityRotation2) {
             Pair<Integer, Integer> theBestPair = resultMapRotation2.get(maxPriorityRotation2);
-            resultList.add(2);
-            resultList.add(theBestPair.getValue());
+            result.setRotation(2);
+            result.setX(theBestPair.getValue());
         }
 
         if (maxPriority == maxPriorityRotation3) {
             Pair<Integer, Integer> theBestPair = resultMapRotation3.get(maxPriorityRotation3);
-            resultList.add(3);
-            resultList.add(theBestPair.getValue());
+            result.setRotation(3);
+            result.setX(theBestPair.getValue());
         }
 
-        System.out.println(resultList);
-        return resultList;
+        System.out.println(result);
+        return result;
     }
 
-    public List<Integer> calcL(int[][] glass) throws InterruptedException {
+    public Result calcL(int[][] glass) throws InterruptedException {
 
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation0 = new HashMap<>();
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation1 = new HashMap<>();
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation2 = new HashMap<>();
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation3 = new HashMap<>();
 
-        List<Integer> resultList = new ArrayList<>();
+        Result result = new Result();
 
         // перебор для  |
         //              |_
@@ -1090,38 +1099,38 @@ public class AI {
         // координаты, на которых должен размещаться нижний по возможности левый угол фигуры
         if (maxPriority == maxPriorityRotation0) {
             Pair<Integer, Integer> theBestPair = resultMapRotation0.get(maxPriorityRotation0);
-            resultList.add(0);
-            resultList.add(theBestPair.getValue());
+            result.setRotation(0);
+            result.setX(theBestPair.getValue());
         }
 
         if (maxPriority == maxPriorityRotation1) {
             Pair<Integer, Integer> theBestPair = resultMapRotation1.get(maxPriorityRotation1);
-            resultList.add(1);
-            resultList.add(theBestPair.getValue());
+            result.setRotation(1);
+            result.setX(theBestPair.getValue());
         }
 
         if (maxPriority == maxPriorityRotation2) {
             Pair<Integer, Integer> theBestPair = resultMapRotation2.get(maxPriorityRotation2);
-            resultList.add(2);
-            resultList.add(theBestPair.getValue());
+            result.setRotation(2);
+            result.setX(theBestPair.getValue());
         }
 
         if (maxPriority == maxPriorityRotation3) {
             Pair<Integer, Integer> theBestPair = resultMapRotation3.get(maxPriorityRotation3);
-            resultList.add(3);
-            resultList.add(theBestPair.getValue());
+            result.setRotation(3);
+            result.setX(theBestPair.getValue());
         }
 
-        System.out.println(resultList);
-        return resultList;
+        System.out.println(result);
+        return result;
     }
 
-    public List<Integer> calcS(int[][] glass) throws InterruptedException {
+    public Result calcS(int[][] glass) throws InterruptedException {
 
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation0 = new HashMap<>();
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation1 = new HashMap<>();
 
-        List<Integer> resultList = new ArrayList<>();
+        Result result = new Result();
 
         //                  __
         // перебор для   __|
@@ -1288,24 +1297,24 @@ public class AI {
         // координаты, на которых должен размещаться левый нижний угол фигуры
         if (maxPriorityRotation0 < maxPriorityRotation1) {
             Pair<Integer, Integer> theBestPair = resultMapRotation0.get(maxPriorityRotation0);
-            resultList.add(0); // без поворота
-            resultList.add(theBestPair.getValue()); // координата X
+            result.setRotation(0); // без поворота
+            result.setX(theBestPair.getValue()); // координата X
         } else {
             Pair<Integer, Integer> theBestPair = resultMapRotation1.get(maxPriorityRotation1);
-            resultList.add(1); // один поворот на 90
-            resultList.add(theBestPair.getValue()); // координата X
+            result.setRotation(1); // один поворот на 90
+            result.setX(theBestPair.getValue()); // координата X
         }
 
-        System.out.println(resultList);
-        return resultList;
+        System.out.println(result);
+        return result;
     }
 
-    public List<Integer> calcZ(int[][] glass) throws InterruptedException {
+    public Result calcZ(int[][] glass) throws InterruptedException {
 
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation0 = new HashMap<>();
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation1 = new HashMap<>();
 
-        List<Integer> resultList = new ArrayList<>();
+        Result result = new Result();
 
         //               __
         // перебор для     |__
@@ -1470,26 +1479,26 @@ public class AI {
         // координаты, на которых должен размещаться левый нижний угол фигуры
         if (maxPriorityRotation0 < maxPriorityRotation1) {
             Pair<Integer, Integer> theBestPair = resultMapRotation0.get(maxPriorityRotation0);
-            resultList.add(0); // без поворота
-            resultList.add(theBestPair.getValue()); // координата X
+            result.setRotation(0); // без поворота
+            result.setX(theBestPair.getValue()); // координата X
         } else {
             Pair<Integer, Integer> theBestPair = resultMapRotation1.get(maxPriorityRotation1);
-            resultList.add(1); // один поворот на 90
-            resultList.add(theBestPair.getValue()); // координата X
+            result.setRotation(1); // один поворот на 90
+            result.setX(theBestPair.getValue()); // координата X
         }
 
-        System.out.println(resultList);
-        return resultList;
+        System.out.println(result);
+        return result;
     }
 
-    public List<Integer> calcT(int[][] glass) throws InterruptedException {
+    public Result calcT(int[][] glass) throws InterruptedException {
 
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation0 = new HashMap<>();
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation1 = new HashMap<>();
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation2 = new HashMap<>();
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation3 = new HashMap<>();
 
-        List<Integer> resultList = new ArrayList<>();
+        Result result = new Result();
 
         // перебор для  _|_
         //
@@ -1816,30 +1825,30 @@ public class AI {
         // координаты, на которых должен размещаться нижний по возможности левый угол фигуры
         if (maxPriority == maxPriorityRotation0) {
             Pair<Integer, Integer> theBestPair = resultMapRotation0.get(maxPriorityRotation0);
-            resultList.add(0);
-            resultList.add(theBestPair.getValue());
+            result.setRotation(0);
+            result.setX(theBestPair.getValue());
         }
 
         if (maxPriority == maxPriorityRotation1) {
             Pair<Integer, Integer> theBestPair = resultMapRotation1.get(maxPriorityRotation1);
-            resultList.add(1);
-            resultList.add(theBestPair.getValue());
+            result.setRotation(1);
+            result.setX(theBestPair.getValue());
         }
 
         if (maxPriority == maxPriorityRotation2) {
             Pair<Integer, Integer> theBestPair = resultMapRotation2.get(maxPriorityRotation2);
-            resultList.add(2);
-            resultList.add(theBestPair.getValue());
+            result.setRotation(2);
+            result.setX(theBestPair.getValue());
         }
 
         if (maxPriority == maxPriorityRotation3) {
             Pair<Integer, Integer> theBestPair = resultMapRotation3.get(maxPriorityRotation3);
-            resultList.add(3);
-            resultList.add(theBestPair.getValue());
+            result.setRotation(3);
+            result.setX(theBestPair.getValue());
         }
 
-        System.out.println(resultList);
-        return resultList;
+        System.out.println(result);
+        return result;
     }
 
 }
