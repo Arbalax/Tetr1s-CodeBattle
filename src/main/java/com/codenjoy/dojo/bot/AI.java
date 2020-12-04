@@ -38,8 +38,13 @@ public class AI {
 
     public int[][] glassToArray(Glass glass) {
         int[][] array = new int[18][18];
-        for (Layer layer: glass.getLayers()) {
-
+        for (int i = 0; i < array.length; i++) {
+            Layer layer = glass.getLayers().get(i);
+            for (int j = 0; j < array[i].length; j++){
+                if (layer.getCells().get(j).isFilled())
+                array[i][j] = 1;
+                else array[i][j] = 0;
+            }
         }
         return array;
     }
