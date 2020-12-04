@@ -24,13 +24,13 @@ public class AIResultHandler {
             }
         }
 
-        if (result.getRotation() == 0) {
+        if (result.getRotation() == 1) {
             commands.add(ROTATE_CLOCKWISE_90);
         }
-        if (result.getRotation() == 1) {
+        if (result.getRotation() == 2) {
             commands.add(ROTATE_CLOCKWISE_180);
         }
-        if (result.getRotation() == 2) {
+        if (result.getRotation() == 3) {
             commands.add(ROTATE_CLOCKWISE_270);
         }
 
