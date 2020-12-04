@@ -13,24 +13,30 @@ public class AIResultHandler {
         List<Command> commands = new LinkedList<>();
         int x = board.getCurrentFigurePoint().getX();
 
-        if (result.getX() < x) {
-            for (int i = 0; i < Math.abs(result.getX() - x); i++) {
+        int resultX = result.getX();
+        if (resultX < x) {
+            for (int i = 0; i < Math.abs(resultX - x); i++) {
                 commands.add(LEFT);
             }
         }
-        if (result.getX() > x) {
-            for (int i = 0; i < Math.abs(result.getX() - x); i++) {
+        if (resultX > x) {
+            for (int i = 0; i < Math.abs(resultX - x); i++) {
                 commands.add(RIGHT);
             }
         }
 
-        if (result.getRotation() == 0) {
+        int rotation = result.getRotation();
+
+        if (rotation == 1) {
             commands.add(ROTATE_CLOCKWISE_90);
         }
-        if (result.getRotation() == 1) {
+        if (rotation == 2) {
             commands.add(ROTATE_CLOCKWISE_180);
         }
-        if (result.getRotation() == 2) {
+        if (rotation == 2) {
+            commands.add(ROTATE_CLOCKWISE_180);
+        }
+        if (rotation == 3) {
             commands.add(ROTATE_CLOCKWISE_270);
         }
 
