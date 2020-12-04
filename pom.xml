@@ -87,6 +87,11 @@
             <version>${fest-reflect.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-base</artifactId>
+            <version>16-ea+5</version>
+        </dependency>
         
     </dependencies>
 
