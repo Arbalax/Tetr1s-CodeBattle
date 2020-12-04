@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class Ai {
+public class AI {
 
 //    private int [][] glass;
     private String figure;
