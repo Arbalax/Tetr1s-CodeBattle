@@ -12,10 +12,7 @@ if (changePosition < 0) {
 
 package com.codenjoy.dojo.bot;
 
-import com.codenjoy.dojo.tetris.model.Cell;
-import com.codenjoy.dojo.tetris.model.Glass;
-import com.codenjoy.dojo.tetris.model.Layer;
-import com.codenjoy.dojo.tetris.model.Result;
+import com.codenjoy.dojo.tetris.model.*;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
@@ -24,19 +21,17 @@ import java.util.HashMap;
 import java.util.List;
 
 public class AI {
+    private Glass glass;
+    private Elements currentFigure;
+    private Result result;
 
-//    private int [][] glass;
-    private String figure;
-
-//    public void setGlass(int [][] glass) {
-//        this.glass = glass;
-//    }
-
-    public void setFigure(String figure) {
-        this.figure = figure;
+    public AI(Glass glass, Elements currentFigure) {
+        this.glass = glass;
+        this.currentFigure = currentFigure;
+        this.result = null;
     }
 
-    public int[][] glassToArray(Glass glass) {
+    private int[][] glassToArray(Glass glass) {
         int[][] array = new int[18][18];
 
         List<Layer> layers = glass.getLayers();
@@ -112,14 +107,14 @@ public class AI {
 
         }
         if (fullLines != 0) {
-            priority = (LINES_MULTIPLIER/fullLines) *
+            priority = (LINES_MULTIPLIER / fullLines) *
                     (maxHeight * HEIGHT_MULTIPLIER +
-                    numberOfHoles * HOLES_MULTIPLIER +
-                    numberOfWells * WELLS_MULTIPLIER);
+                            numberOfHoles * HOLES_MULTIPLIER +
+                            numberOfWells * WELLS_MULTIPLIER);
         } else {
             priority = maxHeight * HEIGHT_MULTIPLIER +
-                        numberOfHoles * HOLES_MULTIPLIER +
-                        numberOfWells * WELLS_MULTIPLIER;
+                    numberOfHoles * HOLES_MULTIPLIER +
+                    numberOfWells * WELLS_MULTIPLIER;
         }
 
 
@@ -127,6 +122,38 @@ public class AI {
 
         return priority;
     }
+
+
+    public Result getResult() {
+        int[][] ints = glassToArray(glass);
+        char figureChar = currentFigure.ch();
+
+        switch (figureChar) {
+            case 'O':
+                result = calcO(ints);
+                break;
+            case 'I':
+                result = calcI(ints);
+                break;
+            case 'J':
+                result = calcJ(ints);
+                break;
+            case 'L':
+                result = calcL(ints);
+                break;
+            case 'S':
+                result = calcS(ints);
+                break;
+            case 'Z':
+                result = calcZ(ints);
+                break;
+            case 'T':
+                result = calcT(ints);
+                break;
+        }
+        return result;
+    }
+
 
     public Result calcO(int[][] glass) {
 

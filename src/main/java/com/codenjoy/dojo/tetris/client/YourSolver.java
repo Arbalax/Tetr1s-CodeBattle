@@ -7,8 +7,6 @@ import com.codenjoy.dojo.services.Command;
 import com.codenjoy.dojo.services.Dice;
 import com.codenjoy.dojo.tetris.model.*;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import static com.codenjoy.dojo.services.AIResultHandler.getCommands;
@@ -48,7 +46,7 @@ public class YourSolver extends AbstractJsonSolver<Board> {
     private AI ai;
 
     public YourSolver() {
-        this.ai = new AI();
+
     }
 
     public YourSolver(Dice dice) {
@@ -57,13 +55,13 @@ public class YourSolver extends AbstractJsonSolver<Board> {
 
     @Override
     public String getAnswer(Board board) {
-//        List<Command> answerList = getAnswerList(board);
         Elements currentFigureType = board.getCurrentFigureType();
         Glass glass = parse(board.getData());
+        ai = new AI(glass, currentFigureType);
 
-        List <Layer> layers = glass.getLayers();
+        List<Layer> layers = glass.getLayers();
         for (Layer layer : layers) {
-            List <Cell> cells = layer.getCells();
+            List<Cell> cells = layer.getCells();
             for (Cell cell : cells) {
                 if (cell.isFilled()) {
                     System.out.print("O\t");
@@ -73,46 +71,11 @@ public class YourSolver extends AbstractJsonSolver<Board> {
             }
             System.out.println();
         }
-        int[][] ints = ai.glassToArray(glass);
-        Result result = null;
-
-        if (currentFigureType.ch() == 'I') {
-            result = ai.calcI(ints);
-        }
-        if (currentFigureType.ch() == 'J') {
-            result = ai.calcJ(ints);
-        }
-        if (currentFigureType.ch() == 'L') {
-            result = ai.calcL(ints);
-        }
-        if (currentFigureType.ch() == 'O') {
-            result = ai.calcO(ints);
-        }
-        if (currentFigureType.ch() == 'S') {
-            result = ai.calcS(ints);
-        }
-        if (currentFigureType.ch() == 'T') {
-            result = ai.calcT(ints);
-        }
-        if (currentFigureType.ch() == 'Z') {
-            result = ai.calcZ(ints);
-        }
-
+        Result result = ai.getResult();
         List<Command> commands = getCommands(result, board);
-
 
         List<String> stringList = commands.stream().map(Command::toString).collect(toList());
         return String.join(", ", stringList);
-    }
-
-    private List<Command> getAnswerList(Board board) {
-        System.out.println(board.getGlass().getAt(board.getCurrentFigurePoint()));
-        List<Command> result = new ArrayList<>();
-        result.add(Command.LEFT);
-        result.add(Command.random(dice));
-        result.add(Command.ROTATE_CLOCKWISE_180);
-
-        return result;
     }
 
     public static void main(String[] args) {
@@ -122,5 +85,4 @@ public class YourSolver extends AbstractJsonSolver<Board> {
                 new YourSolver(),
                 new Board());
     }
-
 }
