@@ -33,14 +33,12 @@ public class AIResultHandler {
         if (rotation == 2) {
             commands.add(ROTATE_CLOCKWISE_180);
         }
-        if (rotation == 2) {
-            commands.add(ROTATE_CLOCKWISE_180);
-        }
         if (rotation == 3) {
             commands.add(ROTATE_CLOCKWISE_270);
         }
 
+        commands.add(DOWN);
+
         return commands;
     }
-
 }

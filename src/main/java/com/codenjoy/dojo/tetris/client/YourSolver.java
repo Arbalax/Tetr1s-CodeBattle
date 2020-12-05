@@ -1,14 +1,19 @@
 package com.codenjoy.dojo.tetris.client;
 
+import com.codenjoy.dojo.bot.AI;
 import com.codenjoy.dojo.client.AbstractJsonSolver;
 import com.codenjoy.dojo.client.WebSocketRunner;
 import com.codenjoy.dojo.services.Command;
 import com.codenjoy.dojo.services.Dice;
-import com.codenjoy.dojo.services.RandomDice;
+import com.codenjoy.dojo.tetris.model.Elements;
+import com.codenjoy.dojo.tetris.model.Glass;
+import com.codenjoy.dojo.tetris.model.Result;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.codenjoy.dojo.services.AIResultHandler.getCommands;
+import static com.codenjoy.dojo.services.BoardParser.parse;
 import static java.util.stream.Collectors.toList;
 
 /*-
@@ -40,8 +45,12 @@ import static java.util.stream.Collectors.toList;
  * фреймворк для тебя.
  */
 public class YourSolver extends AbstractJsonSolver<Board> {
-
     private Dice dice;
+    private AI ai;
+
+    public YourSolver() {
+        this.ai = new AI();
+    }
 
     public YourSolver(Dice dice) {
         this.dice = dice;
@@ -49,8 +58,38 @@ public class YourSolver extends AbstractJsonSolver<Board> {
 
     @Override
     public String getAnswer(Board board) {
-        List<Command> answerList = getAnswerList(board);
-        List<String> stringList = answerList.stream().map(d -> d.toString()).collect(toList());
+//        List<Command> answerList = getAnswerList(board);
+        Elements currentFigureType = board.getCurrentFigureType();
+        Glass glass = parse(board.getData());
+        int[][] ints = ai.glassToArray(glass);
+        Result result = null;
+
+        if (currentFigureType.ch() == 'I') {
+            result = ai.calcI(ints);
+        }
+        if (currentFigureType.ch() == 'J') {
+            result = ai.calcJ(ints);
+        }
+        if (currentFigureType.ch() == 'L') {
+            result = ai.calcL(ints);
+        }
+        if (currentFigureType.ch() == 'O') {
+            result = ai.calcO(ints);
+        }
+        if (currentFigureType.ch() == 'S') {
+            result = ai.calcS(ints);
+        }
+        if (currentFigureType.ch() == 'T') {
+            result = ai.calcT(ints);
+        }
+        if (currentFigureType.ch() == 'Z') {
+            result = ai.calcZ(ints);
+        }
+
+        List<Command> commands = getCommands(result, board);
+
+
+        List<String> stringList = commands.stream().map(Command::toString).collect(toList());
         return String.join(", ", stringList);
     }
 
@@ -68,7 +107,7 @@ public class YourSolver extends AbstractJsonSolver<Board> {
         WebSocketRunner.runClient(
                 // скопируйте сюда адрес из браузера, на который перейдете после регистрации/логина
                 "http://codebattle2020.westeurope.cloudapp.azure.com/codenjoy-contest/board/player/b777ine3y0mz8ntv8hru?code=5352453488097993399",
-                new YourSolver(new RandomDice()),
+                new YourSolver(),
                 new Board());
     }
 

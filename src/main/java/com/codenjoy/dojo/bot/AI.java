@@ -12,10 +12,11 @@ if (changePosition < 0) {
 
 package com.codenjoy.dojo.bot;
 
+import com.codenjoy.dojo.tetris.model.Cell;
 import com.codenjoy.dojo.tetris.model.Glass;
 import com.codenjoy.dojo.tetris.model.Layer;
 import com.codenjoy.dojo.tetris.model.Result;
-import javafx.util.*;
+import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,12 +38,18 @@ public class AI {
 
     public int[][] glassToArray(Glass glass) {
         int[][] array = new int[18][18];
-        for (int i = 0; i < array.length; i++) {
-            Layer layer = glass.getLayers().get(i);
-            for (int j = 0; j < array[i].length; j++){
-                if (layer.getCells().get(j).isFilled())
-                array[i][j] = 1;
-                else array[i][j] = 0;
+
+        List<Layer> layers = glass.getLayers();
+        for (Layer layer : layers) {
+            List<Cell> cells = layer.getCells();
+            for (Cell cell : cells) {
+                int layerNumber = layer.getLayerNumber();
+                int x = cell.getX();
+                if (cell.isFilled()) {
+                    array[layerNumber][x] = 1;
+                } else {
+                    array[layerNumber][x] = 0;
+                }
             }
         }
         return array;
@@ -137,11 +144,11 @@ public class AI {
 
                     System.out.println("Into first if");
 
-                    int [][] newArray = new int[glass[j].length][glass.length];
+                    int[][] newArray = new int[glass[j].length][glass.length];
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++){
-                            newArray[k][l]=glass[k][l];
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
+                            newArray[k][l] = glass[k][l];
                         }
                     }
 
@@ -150,8 +157,8 @@ public class AI {
                     newArray[i - 2][j] = 1;
                     newArray[i - 2][j + 1] = 1;
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
                             System.out.print(newArray[k][l] + "\t");
                         }
                         System.out.println();
@@ -166,16 +173,16 @@ public class AI {
                 }
 
                 if ((i == glass[j].length - 1) && (glass[i][j] == 0)
-                                               && (glass[i][j + 1] == 0)
-                                               && (glass[i - 1][j + 1] == 0)) {
+                        && (glass[i][j + 1] == 0)
+                        && (glass[i - 1][j + 1] == 0)) {
 
                     System.out.println("Into second if ");
 
-                    int [][] newArray = new int[glass[j].length][glass.length];
+                    int[][] newArray = new int[glass[j].length][glass.length];
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
-                            newArray[k][l]=glass[k][l];
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
+                            newArray[k][l] = glass[k][l];
                         }
                     }
 
@@ -184,8 +191,8 @@ public class AI {
                     newArray[i - 1][j] = 1;
                     newArray[i - 1][j + 1] = 1;
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
                             System.out.print(newArray[k][l] + "\t");
                         }
                         System.out.println();
@@ -232,11 +239,11 @@ public class AI {
 
                     System.out.println("Into first if");
 
-                    int [][] newArray = new int[glass[j].length][glass.length];
+                    int[][] newArray = new int[glass[j].length][glass.length];
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++){
-                            newArray[k][l]=glass[k][l];
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
+                            newArray[k][l] = glass[k][l];
                         }
                     }
 
@@ -245,8 +252,8 @@ public class AI {
                     newArray[i - 3][j] = 1;
                     newArray[i - 4][j] = 1;
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
                             System.out.print(newArray[k][l] + "\t");
                         }
                         System.out.println();
@@ -264,11 +271,11 @@ public class AI {
 
                     System.out.println("Into second if ");
 
-                    int [][] newArray = new int[glass[j].length][glass.length];
+                    int[][] newArray = new int[glass[j].length][glass.length];
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
-                            newArray[k][l]=glass[k][l];
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
+                            newArray[k][l] = glass[k][l];
                         }
                     }
 
@@ -277,8 +284,8 @@ public class AI {
                     newArray[i - 2][j] = 1;
                     newArray[i - 3][j] = 1;
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
                             System.out.print(newArray[k][l] + "\t");
                         }
                         System.out.println();
@@ -306,11 +313,11 @@ public class AI {
 
                     System.out.println("Into first if");
 
-                    int [][] newArray = new int[glass[j].length][glass.length];
+                    int[][] newArray = new int[glass[j].length][glass.length];
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++){
-                            newArray[k][l]=glass[k][l];
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
+                            newArray[k][l] = glass[k][l];
                         }
                     }
 
@@ -319,8 +326,8 @@ public class AI {
                     newArray[i - 1][j + 2] = 1;
                     newArray[i - 1][j + 3] = 1;
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
                             System.out.print(newArray[k][l] + "\t");
                         }
                         System.out.println();
@@ -341,11 +348,11 @@ public class AI {
 
                     System.out.println("Into second if ");
 
-                    int [][] newArray = new int[glass[j].length][glass.length];
+                    int[][] newArray = new int[glass[j].length][glass.length];
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
-                            newArray[k][l]=glass[k][l];
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
+                            newArray[k][l] = glass[k][l];
                         }
                     }
 
@@ -354,8 +361,8 @@ public class AI {
                     newArray[i][j + 2] = 1;
                     newArray[i][j + 3] = 1;
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
                             System.out.print(newArray[k][l] + "\t");
                         }
                         System.out.println();
@@ -424,11 +431,11 @@ public class AI {
 
                     System.out.println("Into first if");
 
-                    int [][] newArray = new int[glass[j].length][glass.length];
+                    int[][] newArray = new int[glass[j].length][glass.length];
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++){
-                            newArray[k][l]=glass[k][l];
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
+                            newArray[k][l] = glass[k][l];
                         }
                     }
 
@@ -437,8 +444,8 @@ public class AI {
                     newArray[i - 2][j + 1] = 1;
                     newArray[i - 3][j + 1] = 1;
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
                             System.out.print(newArray[k][l] + "\t");
                         }
                         System.out.println();
@@ -459,11 +466,11 @@ public class AI {
 
                     System.out.println("Into second if ");
 
-                    int [][] newArray = new int[glass[j].length][glass.length];
+                    int[][] newArray = new int[glass[j].length][glass.length];
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
-                            newArray[k][l]=glass[k][l];
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
+                            newArray[k][l] = glass[k][l];
                         }
                     }
 
@@ -472,8 +479,8 @@ public class AI {
                     newArray[i - 1][j + 1] = 1;
                     newArray[i - 2][j + 1] = 1;
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
                             System.out.print(newArray[k][l] + "\t");
                         }
                         System.out.println();
@@ -500,11 +507,11 @@ public class AI {
 
                     System.out.println("Into first if");
 
-                    int [][] newArray = new int[glass[j].length][glass.length];
+                    int[][] newArray = new int[glass[j].length][glass.length];
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++){
-                            newArray[k][l]=glass[k][l];
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
+                            newArray[k][l] = glass[k][l];
                         }
                     }
 
@@ -513,8 +520,8 @@ public class AI {
                     newArray[i - 1][j + 1] = 1;
                     newArray[i - 1][j + 2] = 1;
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
                             System.out.print(newArray[k][l] + "\t");
                         }
                         System.out.println();
@@ -534,11 +541,11 @@ public class AI {
 
                     System.out.println("Into second if ");
 
-                    int [][] newArray = new int[glass[j].length][glass.length];
+                    int[][] newArray = new int[glass[j].length][glass.length];
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
-                            newArray[k][l]=glass[k][l];
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
+                            newArray[k][l] = glass[k][l];
                         }
                     }
 
@@ -547,8 +554,8 @@ public class AI {
                     newArray[i][j + 1] = 1;
                     newArray[i][j + 2] = 1;
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
                             System.out.print(newArray[k][l] + "\t");
                         }
                         System.out.println();
@@ -575,11 +582,11 @@ public class AI {
 
                     System.out.println("Into first if");
 
-                    int [][] newArray = new int[glass[j].length][glass.length];
+                    int[][] newArray = new int[glass[j].length][glass.length];
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++){
-                            newArray[k][l]=glass[k][l];
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
+                            newArray[k][l] = glass[k][l];
                         }
                     }
 
@@ -588,8 +595,8 @@ public class AI {
                     newArray[i - 3][j] = 1;
                     newArray[i - 3][j + 1] = 1;
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
                             System.out.print(newArray[k][l] + "\t");
                         }
                         System.out.println();
@@ -608,11 +615,11 @@ public class AI {
 
                     System.out.println("Into second if ");
 
-                    int [][] newArray = new int[glass[j].length][glass.length];
+                    int[][] newArray = new int[glass[j].length][glass.length];
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
-                            newArray[k][l]=glass[k][l];
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
+                            newArray[k][l] = glass[k][l];
                         }
                     }
 
@@ -621,8 +628,8 @@ public class AI {
                     newArray[i - 2][j] = 1;
                     newArray[i - 2][j + 1] = 1;
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
                             System.out.print(newArray[k][l] + "\t");
                         }
                         System.out.println();
@@ -650,11 +657,11 @@ public class AI {
 
                     System.out.println("Into first if");
 
-                    int [][] newArray = new int[glass[j].length][glass.length];
+                    int[][] newArray = new int[glass[j].length][glass.length];
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++){
-                            newArray[k][l]=glass[k][l];
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
+                            newArray[k][l] = glass[k][l];
                         }
                     }
 
@@ -663,8 +670,8 @@ public class AI {
                     newArray[i - 2][j - 1] = 1;
                     newArray[i - 2][j - 2] = 1;
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
                             System.out.print(newArray[k][l] + "\t");
                         }
                         System.out.println();
@@ -684,11 +691,11 @@ public class AI {
 
                     System.out.println("Into second if ");
 
-                    int [][] newArray = new int[glass[j].length][glass.length];
+                    int[][] newArray = new int[glass[j].length][glass.length];
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
-                            newArray[k][l]=glass[k][l];
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
+                            newArray[k][l] = glass[k][l];
                         }
                     }
 
@@ -697,8 +704,8 @@ public class AI {
                     newArray[i - 1][j - 1] = 1;
                     newArray[i - 1][j - 2] = 1;
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
                             System.out.print(newArray[k][l] + "\t");
                         }
                         System.out.println();
@@ -718,7 +725,7 @@ public class AI {
         double maxPriorityRotation2 = Collections.min(resultMapRotation2.keySet());
         double maxPriorityRotation3 = Collections.min(resultMapRotation3.keySet());
 
-        List <Double> maxPriorityArray = new ArrayList<>();
+        List<Double> maxPriorityArray = new ArrayList<>();
         maxPriorityArray.add(maxPriorityRotation0);
         maxPriorityArray.add(maxPriorityRotation1);
         maxPriorityArray.add(maxPriorityRotation2);
@@ -775,11 +782,11 @@ public class AI {
 
                     System.out.println("Into first if");
 
-                    int [][] newArray = new int[glass[j].length][glass.length];
+                    int[][] newArray = new int[glass[j].length][glass.length];
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++){
-                            newArray[k][l]=glass[k][l];
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
+                            newArray[k][l] = glass[k][l];
                         }
                     }
 
@@ -788,8 +795,8 @@ public class AI {
                     newArray[i - 3][j] = 1;
                     newArray[i - 1][j + 1] = 1;
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
                             System.out.print(newArray[k][l] + "\t");
                         }
                         System.out.println();
@@ -808,11 +815,11 @@ public class AI {
 
                     System.out.println("Into second if ");
 
-                    int [][] newArray = new int[glass[j].length][glass.length];
+                    int[][] newArray = new int[glass[j].length][glass.length];
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
-                            newArray[k][l]=glass[k][l];
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
+                            newArray[k][l] = glass[k][l];
                         }
                     }
 
@@ -821,8 +828,8 @@ public class AI {
                     newArray[i - 2][j] = 1;
                     newArray[i][j + 1] = 1;
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
                             System.out.print(newArray[k][l] + "\t");
                         }
                         System.out.println();
@@ -850,11 +857,11 @@ public class AI {
 
                     System.out.println("Into first if");
 
-                    int [][] newArray = new int[glass[j].length][glass.length];
+                    int[][] newArray = new int[glass[j].length][glass.length];
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++){
-                            newArray[k][l]=glass[k][l];
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
+                            newArray[k][l] = glass[k][l];
                         }
                     }
 
@@ -863,8 +870,8 @@ public class AI {
                     newArray[i - 2][j + 1] = 1;
                     newArray[i - 2][j + 2] = 1;
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
                             System.out.print(newArray[k][l] + "\t");
                         }
                         System.out.println();
@@ -884,11 +891,11 @@ public class AI {
 
                     System.out.println("Into second if ");
 
-                    int [][] newArray = new int[glass[j].length][glass.length];
+                    int[][] newArray = new int[glass[j].length][glass.length];
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
-                            newArray[k][l]=glass[k][l];
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
+                            newArray[k][l] = glass[k][l];
                         }
                     }
 
@@ -897,8 +904,8 @@ public class AI {
                     newArray[i - 1][j + 1] = 1;
                     newArray[i - 1][j + 2] = 1;
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
                             System.out.print(newArray[k][l] + "\t");
                         }
                         System.out.println();
@@ -925,11 +932,11 @@ public class AI {
 
                     System.out.println("Into first if");
 
-                    int [][] newArray = new int[glass[j].length][glass.length];
+                    int[][] newArray = new int[glass[j].length][glass.length];
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++){
-                            newArray[k][l]=glass[k][l];
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
+                            newArray[k][l] = glass[k][l];
                         }
                     }
 
@@ -938,8 +945,8 @@ public class AI {
                     newArray[i - 3][j] = 1;
                     newArray[i - 3][j - 1] = 1;
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
                             System.out.print(newArray[k][l] + "\t");
                         }
                         System.out.println();
@@ -958,11 +965,11 @@ public class AI {
 
                     System.out.println("Into second if ");
 
-                    int [][] newArray = new int[glass[j].length][glass.length];
+                    int[][] newArray = new int[glass[j].length][glass.length];
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
-                            newArray[k][l]=glass[k][l];
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
+                            newArray[k][l] = glass[k][l];
                         }
                     }
 
@@ -971,8 +978,8 @@ public class AI {
                     newArray[i - 2][j] = 1;
                     newArray[i - 2][j - 1] = 1;
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
                             System.out.print(newArray[k][l] + "\t");
                         }
                         System.out.println();
@@ -1001,11 +1008,11 @@ public class AI {
 
                     System.out.println("Into first if");
 
-                    int [][] newArray = new int[glass[j].length][glass.length];
+                    int[][] newArray = new int[glass[j].length][glass.length];
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++){
-                            newArray[k][l]=glass[k][l];
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
+                            newArray[k][l] = glass[k][l];
                         }
                     }
 
@@ -1014,8 +1021,8 @@ public class AI {
                     newArray[i - 1][j + 2] = 1;
                     newArray[i - 2][j + 2] = 1;
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
                             System.out.print(newArray[k][l] + "\t");
                         }
                         System.out.println();
@@ -1036,11 +1043,11 @@ public class AI {
 
                     System.out.println("Into second if ");
 
-                    int [][] newArray = new int[glass[j].length][glass.length];
+                    int[][] newArray = new int[glass[j].length][glass.length];
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
-                            newArray[k][l]=glass[k][l];
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
+                            newArray[k][l] = glass[k][l];
                         }
                     }
 
@@ -1049,8 +1056,8 @@ public class AI {
                     newArray[i][j + 2] = 1;
                     newArray[i - 1][j + 2] = 1;
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
                             System.out.print(newArray[k][l] + "\t");
                         }
                         System.out.println();
@@ -1070,7 +1077,7 @@ public class AI {
         double maxPriorityRotation2 = Collections.min(resultMapRotation2.keySet());
         double maxPriorityRotation3 = Collections.min(resultMapRotation3.keySet());
 
-        List <Double> maxPriorityArray = new ArrayList<>();
+        List<Double> maxPriorityArray = new ArrayList<>();
         maxPriorityArray.add(maxPriorityRotation0);
         maxPriorityArray.add(maxPriorityRotation1);
         maxPriorityArray.add(maxPriorityRotation2);
@@ -1128,11 +1135,11 @@ public class AI {
 
                     System.out.println("Into first if");
 
-                    int [][] newArray = new int[glass[j].length][glass.length];
+                    int[][] newArray = new int[glass[j].length][glass.length];
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++){
-                            newArray[k][l]=glass[k][l];
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
+                            newArray[k][l] = glass[k][l];
                         }
                     }
 
@@ -1141,8 +1148,8 @@ public class AI {
                     newArray[i - 2][j + 1] = 1;
                     newArray[i - 2][j + 2] = 1;
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
                             System.out.print(newArray[k][l] + "\t");
                         }
                         System.out.println();
@@ -1163,11 +1170,11 @@ public class AI {
 
                     System.out.println("Into second if ");
 
-                    int [][] newArray = new int[glass[j].length][glass.length];
+                    int[][] newArray = new int[glass[j].length][glass.length];
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
-                            newArray[k][l]=glass[k][l];
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
+                            newArray[k][l] = glass[k][l];
                         }
                     }
 
@@ -1176,8 +1183,8 @@ public class AI {
                     newArray[i - 1][j + 1] = 1;
                     newArray[i - 1][j + 2] = 1;
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
                             System.out.print(newArray[k][l] + "\t");
                         }
                         System.out.println();
@@ -1205,11 +1212,11 @@ public class AI {
 
                     System.out.println("Into first if");
 
-                    int [][] newArray = new int[glass[j].length][glass.length];
+                    int[][] newArray = new int[glass[j].length][glass.length];
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++){
-                            newArray[k][l]=glass[k][l];
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
+                            newArray[k][l] = glass[k][l];
                         }
                     }
 
@@ -1218,8 +1225,8 @@ public class AI {
                     newArray[i - 2][j - 1] = 1;
                     newArray[i - 3][j - 1] = 1;
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
                             System.out.print(newArray[k][l] + "\t");
                         }
                         System.out.println();
@@ -1239,11 +1246,11 @@ public class AI {
 
                     System.out.println("Into second if ");
 
-                    int [][] newArray = new int[glass[j].length][glass.length];
+                    int[][] newArray = new int[glass[j].length][glass.length];
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
-                            newArray[k][l]=glass[k][l];
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
+                            newArray[k][l] = glass[k][l];
                         }
                     }
 
@@ -1252,8 +1259,8 @@ public class AI {
                     newArray[i - 1][j - 1] = 1;
                     newArray[i - 2][j - 1] = 1;
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
                             System.out.print(newArray[k][l] + "\t");
                         }
                         System.out.println();
@@ -1307,11 +1314,11 @@ public class AI {
 
                     System.out.println("Into first if");
 
-                    int [][] newArray = new int[glass[j].length][glass.length];
+                    int[][] newArray = new int[glass[j].length][glass.length];
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++){
-                            newArray[k][l]=glass[k][l];
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
+                            newArray[k][l] = glass[k][l];
                         }
                     }
 
@@ -1320,8 +1327,8 @@ public class AI {
                     newArray[i - 2][j] = 1;
                     newArray[i - 2][j - 1] = 1;
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
                             System.out.print(newArray[k][l] + "\t");
                         }
                         System.out.println();
@@ -1341,11 +1348,11 @@ public class AI {
 
                     System.out.println("Into second if ");
 
-                    int [][] newArray = new int[glass[j].length][glass.length];
+                    int[][] newArray = new int[glass[j].length][glass.length];
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
-                            newArray[k][l]=glass[k][l];
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
+                            newArray[k][l] = glass[k][l];
                         }
                     }
 
@@ -1354,8 +1361,8 @@ public class AI {
                     newArray[i - 1][j] = 1;
                     newArray[i - 1][j - 1] = 1;
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
                             System.out.print(newArray[k][l] + "\t");
                         }
                         System.out.println();
@@ -1383,11 +1390,11 @@ public class AI {
 
                     System.out.println("Into first if");
 
-                    int [][] newArray = new int[glass[j].length][glass.length];
+                    int[][] newArray = new int[glass[j].length][glass.length];
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++){
-                            newArray[k][l]=glass[k][l];
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
+                            newArray[k][l] = glass[k][l];
                         }
                     }
 
@@ -1396,8 +1403,8 @@ public class AI {
                     newArray[i - 2][j + 1] = 1;
                     newArray[i - 3][j + 1] = 1;
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
                             System.out.print(newArray[k][l] + "\t");
                         }
                         System.out.println();
@@ -1417,11 +1424,11 @@ public class AI {
 
                     System.out.println("Into second if ");
 
-                    int [][] newArray = new int[glass[j].length][glass.length];
+                    int[][] newArray = new int[glass[j].length][glass.length];
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
-                            newArray[k][l]=glass[k][l];
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
+                            newArray[k][l] = glass[k][l];
                         }
                     }
 
@@ -1430,8 +1437,8 @@ public class AI {
                     newArray[i - 1][j + 1] = 1;
                     newArray[i - 2][j + 1] = 1;
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
                             System.out.print(newArray[k][l] + "\t");
                         }
                         System.out.println();
@@ -1487,11 +1494,11 @@ public class AI {
 
                     System.out.println("Into first if");
 
-                    int [][] newArray = new int[glass[j].length][glass.length];
+                    int[][] newArray = new int[glass[j].length][glass.length];
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++){
-                            newArray[k][l]=glass[k][l];
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
+                            newArray[k][l] = glass[k][l];
                         }
                     }
 
@@ -1500,8 +1507,8 @@ public class AI {
                     newArray[i - 1][j + 2] = 1;
                     newArray[i - 2][j + 1] = 1;
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
                             System.out.print(newArray[k][l] + "\t");
                         }
                         System.out.println();
@@ -1522,11 +1529,11 @@ public class AI {
 
                     System.out.println("Into second if ");
 
-                    int [][] newArray = new int[glass[j].length][glass.length];
+                    int[][] newArray = new int[glass[j].length][glass.length];
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
-                            newArray[k][l]=glass[k][l];
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
+                            newArray[k][l] = glass[k][l];
                         }
                     }
 
@@ -1535,8 +1542,8 @@ public class AI {
                     newArray[i][j + 2] = 1;
                     newArray[i - 1][j + 1] = 1;
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
                             System.out.print(newArray[k][l] + "\t");
                         }
                         System.out.println();
@@ -1563,11 +1570,11 @@ public class AI {
 
                     System.out.println("Into first if");
 
-                    int [][] newArray = new int[glass[j].length][glass.length];
+                    int[][] newArray = new int[glass[j].length][glass.length];
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++){
-                            newArray[k][l]=glass[k][l];
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
+                            newArray[k][l] = glass[k][l];
                         }
                     }
 
@@ -1576,8 +1583,8 @@ public class AI {
                     newArray[i - 3][j] = 1;
                     newArray[i - 2][j + 1] = 1;
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
                             System.out.print(newArray[k][l] + "\t");
                         }
                         System.out.println();
@@ -1596,11 +1603,11 @@ public class AI {
 
                     System.out.println("Into second if ");
 
-                    int [][] newArray = new int[glass[j].length][glass.length];
+                    int[][] newArray = new int[glass[j].length][glass.length];
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
-                            newArray[k][l]=glass[k][l];
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
+                            newArray[k][l] = glass[k][l];
                         }
                     }
 
@@ -1609,8 +1616,8 @@ public class AI {
                     newArray[i - 2][j] = 1;
                     newArray[i - 1][j + 1] = 1;
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
                             System.out.print(newArray[k][l] + "\t");
                         }
                         System.out.println();
@@ -1638,11 +1645,11 @@ public class AI {
 
                     System.out.println("Into first if");
 
-                    int [][] newArray = new int[glass[j].length][glass.length];
+                    int[][] newArray = new int[glass[j].length][glass.length];
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++){
-                            newArray[k][l]=glass[k][l];
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
+                            newArray[k][l] = glass[k][l];
                         }
                     }
 
@@ -1651,8 +1658,8 @@ public class AI {
                     newArray[i - 2][j - 1] = 1;
                     newArray[i - 2][j + 1] = 1;
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
                             System.out.print(newArray[k][l] + "\t");
                         }
                         System.out.println();
@@ -1672,11 +1679,11 @@ public class AI {
 
                     System.out.println("Into second if ");
 
-                    int [][] newArray = new int[glass[j].length][glass.length];
+                    int[][] newArray = new int[glass[j].length][glass.length];
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
-                            newArray[k][l]=glass[k][l];
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
+                            newArray[k][l] = glass[k][l];
                         }
                     }
 
@@ -1685,8 +1692,8 @@ public class AI {
                     newArray[i - 1][j - 1] = 1;
                     newArray[i - 1][j + 1] = 1;
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
                             System.out.print(newArray[k][l] + "\t");
                         }
                         System.out.println();
@@ -1713,11 +1720,11 @@ public class AI {
 
                     System.out.println("Into first if");
 
-                    int [][] newArray = new int[glass[j].length][glass.length];
+                    int[][] newArray = new int[glass[j].length][glass.length];
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++){
-                            newArray[k][l]=glass[k][l];
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
+                            newArray[k][l] = glass[k][l];
                         }
                     }
 
@@ -1726,8 +1733,8 @@ public class AI {
                     newArray[i - 3][j] = 1;
                     newArray[i - 2][j - 1] = 1;
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
                             System.out.print(newArray[k][l] + "\t");
                         }
                         System.out.println();
@@ -1746,11 +1753,11 @@ public class AI {
 
                     System.out.println("Into second if ");
 
-                    int [][] newArray = new int[glass[j].length][glass.length];
+                    int[][] newArray = new int[glass[j].length][glass.length];
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
-                            newArray[k][l]=glass[k][l];
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
+                            newArray[k][l] = glass[k][l];
                         }
                     }
 
@@ -1759,8 +1766,8 @@ public class AI {
                     newArray[i - 2][j] = 1;
                     newArray[i - 1][j - 1] = 1;
 
-                    for(int k=0; k<glass.length; k++) {
-                        for(int l=0; l<glass[k].length; l++) {
+                    for (int k = 0; k < glass.length; k++) {
+                        for (int l = 0; l < glass[k].length; l++) {
                             System.out.print(newArray[k][l] + "\t");
                         }
                         System.out.println();
@@ -1780,7 +1787,7 @@ public class AI {
         double maxPriorityRotation2 = Collections.min(resultMapRotation2.keySet());
         double maxPriorityRotation3 = Collections.min(resultMapRotation3.keySet());
 
-        List <Double> maxPriorityArray = new ArrayList<>();
+        List<Double> maxPriorityArray = new ArrayList<>();
         maxPriorityArray.add(maxPriorityRotation0);
         maxPriorityArray.add(maxPriorityRotation1);
         maxPriorityArray.add(maxPriorityRotation2);

@@ -3,16 +3,21 @@ package com.codenjoy.dojo.services;
 import com.codenjoy.dojo.tetris.model.Cell;
 import com.codenjoy.dojo.tetris.model.Glass;
 import com.codenjoy.dojo.tetris.model.Layer;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 public class BoardParser {
     public static Glass parse(String data) {
-        List<Layer> layers = new ArrayList<>();
-        int layerNumber = 1;
-        for (String layerData : data.split("(?<=\\G.{18})")) {
+        JSONObject source = new JSONObject(data);
+        JSONArray layersJson = source.getJSONArray("layers");
+        String[] layersStrings = layersJson.toList().toArray(new String[0]);
+
+        List<Layer> layers = new LinkedList<>();
+        int layerNumber = 0;
+        for (String layerData : layersStrings[0].split("(?<=\\G.{18})")) {
             Layer layer = new Layer(layerNumber);
             int x = 0;
             List<Cell> cells = new LinkedList<>();
@@ -33,4 +38,6 @@ public class BoardParser {
         }
         return new Glass(layers);
     }
+
+
 }
