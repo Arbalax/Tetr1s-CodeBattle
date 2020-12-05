@@ -28,10 +28,11 @@ public class AI {
     public AI(Glass glass, Elements currentFigure) {
         this.glass = glass;
         this.currentFigure = currentFigure;
-        this.result = null;
+        this.result = new Result();
     }
 
     private int[][] glassToArray(Glass glass) {
+
         int[][] array = new int[18][18];
 
         List<Layer> layers = glass.getLayers();
@@ -61,7 +62,6 @@ public class AI {
         int maxHeight = 0;
         int numberOfHoles = 0;
         int numberOfWells = 0;
-
 
         double priority;
 
@@ -117,7 +117,6 @@ public class AI {
                     numberOfWells * WELLS_MULTIPLIER;
         }
 
-
         System.out.println(priority);
 
         return priority;
@@ -159,14 +158,6 @@ public class AI {
 
         HashMap<Double, Pair<Integer, Integer>> resultMap = new HashMap<>();
 
-        Result result = new Result();
-
-//        for(int m=0; m<glass.length; m++) {
-//            for(int n=0; n<glass[m].length; n++)
-//                System.out.print(glass[m][n] + "\t");
-//            System.out.println();
-//        }
-
         for (int j = 0; j < glass.length - 1; j++) {
 
             for (int i = 2; i < glass[j].length; i++) {
@@ -178,28 +169,16 @@ public class AI {
 
                     System.out.println("Into first if");
 
-                    int[][] newArray = new int[glass[j].length][glass.length];
-
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            newArray[k][l] = glass[k][l];
-                        }
-                    }
+                    int[][] newArray = copyToNewArray(glass);
 
                     newArray[i - 1][j] = 1;
                     newArray[i - 1][j + 1] = 1;
                     newArray[i - 2][j] = 1;
                     newArray[i - 2][j + 1] = 1;
 
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            System.out.print(newArray[k][l] + "\t");
-                        }
-                        System.out.println();
-                    }
+                    showCurrentArray(newArray);
 
                     double priority = calcPriority(newArray);
-
 
                     resultMap.put(priority, new Pair<>(i, j));
 
@@ -213,35 +192,20 @@ public class AI {
 
                     System.out.println("Into second if ");
 
-                    int[][] newArray = new int[glass[j].length][glass.length];
-
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            newArray[k][l] = glass[k][l];
-                        }
-                    }
+                    int[][] newArray = copyToNewArray(glass);
 
                     newArray[i][j] = 1;
                     newArray[i][j + 1] = 1;
                     newArray[i - 1][j] = 1;
                     newArray[i - 1][j + 1] = 1;
 
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            System.out.print(newArray[k][l] + "\t");
-                        }
-                        System.out.println();
-                    }
+                    showCurrentArray(newArray);
 
                     double priority = calcPriority(newArray);
 
-
                     resultMap.put(priority, new Pair<>(i, j));
-
                 }
-
             }
-
         }
 
         System.out.println("resultMap in calcO" + resultMap);
@@ -257,12 +221,10 @@ public class AI {
         return result;
     }
 
-    public Result calcI(int[][] glass) {
+    private Result calcI(int[][] glass) {
 
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation0 = new HashMap<>();
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation1 = new HashMap<>();
-
-        Result result = new Result();
 
         // перебор для вертикального положения фигуры I
 
@@ -274,28 +236,16 @@ public class AI {
 
                     System.out.println("Into first if");
 
-                    int[][] newArray = new int[glass[j].length][glass.length];
-
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            newArray[k][l] = glass[k][l];
-                        }
-                    }
+                    int[][] newArray = copyToNewArray(glass);
 
                     newArray[i - 1][j] = 1;
                     newArray[i - 2][j] = 1;
                     newArray[i - 3][j] = 1;
                     newArray[i - 4][j] = 1;
 
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            System.out.print(newArray[k][l] + "\t");
-                        }
-                        System.out.println();
-                    }
+                    showCurrentArray(newArray);
 
                     double priority = calcPriority(newArray);
-
 
                     resultMapRotation0.put(priority, new Pair<>(i, j));
 
@@ -306,31 +256,18 @@ public class AI {
 
                     System.out.println("Into second if ");
 
-                    int[][] newArray = new int[glass[j].length][glass.length];
-
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            newArray[k][l] = glass[k][l];
-                        }
-                    }
+                    int[][] newArray = copyToNewArray(glass);
 
                     newArray[i][j] = 1;
                     newArray[i - 1][j] = 1;
                     newArray[i - 2][j] = 1;
                     newArray[i - 3][j] = 1;
 
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            System.out.print(newArray[k][l] + "\t");
-                        }
-                        System.out.println();
-                    }
+                    showCurrentArray(newArray);
 
                     double priority = calcPriority(newArray);
 
-
                     resultMapRotation0.put(priority, new Pair<>(i, j));
-
                 }
             }
         }
@@ -349,28 +286,16 @@ public class AI {
 
                     System.out.println("Into first if");
 
-                    int[][] newArray = new int[glass[j].length][glass.length];
-
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            newArray[k][l] = glass[k][l];
-                        }
-                    }
+                    int[][] newArray = copyToNewArray(glass);
 
                     newArray[i - 1][j] = 1;
                     newArray[i - 1][j + 1] = 1;
                     newArray[i - 1][j + 2] = 1;
                     newArray[i - 1][j + 3] = 1;
 
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            System.out.print(newArray[k][l] + "\t");
-                        }
-                        System.out.println();
-                    }
+                    showCurrentArray(newArray);
 
                     double priority = calcPriority(newArray);
-
 
                     resultMapRotation1.put(priority, new Pair<>(i, j));
 
@@ -385,31 +310,18 @@ public class AI {
 
                     System.out.println("Into second if ");
 
-                    int[][] newArray = new int[glass[j].length][glass.length];
-
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            newArray[k][l] = glass[k][l];
-                        }
-                    }
+                    int[][] newArray = copyToNewArray(glass);
 
                     newArray[i][j] = 1;
                     newArray[i][j + 1] = 1;
                     newArray[i][j + 2] = 1;
                     newArray[i][j + 3] = 1;
 
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            System.out.print(newArray[k][l] + "\t");
-                        }
-                        System.out.println();
-                    }
+                    showCurrentArray(newArray);
 
                     double priority = calcPriority(newArray);
 
-
                     resultMapRotation1.put(priority, new Pair<>(i, j));
-
                 }
             }
         }
@@ -446,14 +358,12 @@ public class AI {
         return result;
     }
 
-    public Result calcJ(int[][] glass) {
+    private Result calcJ(int[][] glass) {
 
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation0 = new HashMap<>();
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation1 = new HashMap<>();
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation2 = new HashMap<>();
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation3 = new HashMap<>();
-
-        Result result = new Result();
 
         // перебор для  |
         //             _|
@@ -469,25 +379,14 @@ public class AI {
 
                     System.out.println("Into first if");
 
-                    int[][] newArray = new int[glass[j].length][glass.length];
-
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            newArray[k][l] = glass[k][l];
-                        }
-                    }
+                    int[][] newArray = copyToNewArray(glass);
 
                     newArray[i - 1][j] = 1;
                     newArray[i - 1][j + 1] = 1;
                     newArray[i - 2][j + 1] = 1;
                     newArray[i - 3][j + 1] = 1;
 
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            System.out.print(newArray[k][l] + "\t");
-                        }
-                        System.out.println();
-                    }
+                    showCurrentArray(newArray);
 
                     double priority = calcPriority(newArray);
 
@@ -505,28 +404,16 @@ public class AI {
 
                     System.out.println("Into second if ");
 
-                    int[][] newArray = new int[glass[j].length][glass.length];
-
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            newArray[k][l] = glass[k][l];
-                        }
-                    }
+                    int[][] newArray = copyToNewArray(glass);
 
                     newArray[i][j] = 1;
                     newArray[i][j + 1] = 1;
                     newArray[i - 1][j + 1] = 1;
                     newArray[i - 2][j + 1] = 1;
 
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            System.out.print(newArray[k][l] + "\t");
-                        }
-                        System.out.println();
-                    }
+                    showCurrentArray(newArray);
 
                     double priority = calcPriority(newArray);
-
 
                     resultMapRotation0.put(priority, new Pair<>(i, j));
 
@@ -547,25 +434,14 @@ public class AI {
 
                     System.out.println("Into first if");
 
-                    int[][] newArray = new int[glass[j].length][glass.length];
-
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            newArray[k][l] = glass[k][l];
-                        }
-                    }
+                    int[][] newArray = copyToNewArray(glass);
 
                     newArray[i - 1][j] = 1;
                     newArray[i - 2][j] = 1;
                     newArray[i - 1][j + 1] = 1;
                     newArray[i - 1][j + 2] = 1;
 
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            System.out.print(newArray[k][l] + "\t");
-                        }
-                        System.out.println();
-                    }
+                    showCurrentArray(newArray);
 
                     double priority = calcPriority(newArray);
 
@@ -582,25 +458,14 @@ public class AI {
 
                     System.out.println("Into second if ");
 
-                    int[][] newArray = new int[glass[j].length][glass.length];
-
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            newArray[k][l] = glass[k][l];
-                        }
-                    }
+                    int[][] newArray = copyToNewArray(glass);
 
                     newArray[i][j] = 1;
                     newArray[i - 1][j] = 1;
                     newArray[i][j + 1] = 1;
                     newArray[i][j + 2] = 1;
 
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            System.out.print(newArray[k][l] + "\t");
-                        }
-                        System.out.println();
-                    }
+                    showCurrentArray(newArray);
 
                     double priority = calcPriority(newArray);
 
@@ -624,25 +489,14 @@ public class AI {
 
                     System.out.println("Into first if");
 
-                    int[][] newArray = new int[glass[j].length][glass.length];
-
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            newArray[k][l] = glass[k][l];
-                        }
-                    }
+                    int[][] newArray = copyToNewArray(glass);
 
                     newArray[i - 1][j] = 1;
                     newArray[i - 2][j] = 1;
                     newArray[i - 3][j] = 1;
                     newArray[i - 3][j + 1] = 1;
 
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            System.out.print(newArray[k][l] + "\t");
-                        }
-                        System.out.println();
-                    }
+                    showCurrentArray(newArray);
 
                     double priority = calcPriority(newArray);
 
@@ -658,25 +512,14 @@ public class AI {
 
                     System.out.println("Into second if ");
 
-                    int[][] newArray = new int[glass[j].length][glass.length];
-
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            newArray[k][l] = glass[k][l];
-                        }
-                    }
+                    int[][] newArray = copyToNewArray(glass);
 
                     newArray[i][j] = 1;
                     newArray[i - 1][j] = 1;
                     newArray[i - 2][j] = 1;
                     newArray[i - 2][j + 1] = 1;
 
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            System.out.print(newArray[k][l] + "\t");
-                        }
-                        System.out.println();
-                    }
+                    showCurrentArray(newArray);
 
                     double priority = calcPriority(newArray);
 
@@ -701,28 +544,16 @@ public class AI {
 
                     System.out.println("Into first if");
 
-                    int[][] newArray = new int[glass[j].length][glass.length];
-
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            newArray[k][l] = glass[k][l];
-                        }
-                    }
+                    int[][] newArray = copyToNewArray(glass);
 
                     newArray[i - 1][j] = 1;
                     newArray[i - 2][j] = 1;
                     newArray[i - 2][j - 1] = 1;
                     newArray[i - 2][j - 2] = 1;
 
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            System.out.print(newArray[k][l] + "\t");
-                        }
-                        System.out.println();
-                    }
+                    showCurrentArray(newArray);
 
                     double priority = calcPriority(newArray);
-
 
                     resultMapRotation3.put(priority, new Pair<>(i, j));
 
@@ -736,25 +567,14 @@ public class AI {
 
                     System.out.println("Into second if ");
 
-                    int[][] newArray = new int[glass[j].length][glass.length];
-
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            newArray[k][l] = glass[k][l];
-                        }
-                    }
+                    int[][] newArray = copyToNewArray(glass);
 
                     newArray[i][j] = 1;
                     newArray[i - 1][j] = 1;
                     newArray[i - 1][j - 1] = 1;
                     newArray[i - 1][j - 2] = 1;
 
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            System.out.print(newArray[k][l] + "\t");
-                        }
-                        System.out.println();
-                    }
+                    showCurrentArray(newArray);
 
                     double priority = calcPriority(newArray);
 
@@ -807,14 +627,12 @@ public class AI {
         return result;
     }
 
-    public Result calcL(int[][] glass) {
+    private Result calcL(int[][] glass) {
 
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation0 = new HashMap<>();
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation1 = new HashMap<>();
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation2 = new HashMap<>();
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation3 = new HashMap<>();
-
-        Result result = new Result();
 
         // перебор для  |
         //              |_
@@ -828,25 +646,14 @@ public class AI {
 
                     System.out.println("Into first if");
 
-                    int[][] newArray = new int[glass[j].length][glass.length];
-
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            newArray[k][l] = glass[k][l];
-                        }
-                    }
+                    int[][] newArray = copyToNewArray(glass);
 
                     newArray[i - 1][j] = 1;
                     newArray[i - 2][j] = 1;
                     newArray[i - 3][j] = 1;
                     newArray[i - 1][j + 1] = 1;
 
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            System.out.print(newArray[k][l] + "\t");
-                        }
-                        System.out.println();
-                    }
+                    showCurrentArray(newArray);
 
                     double priority = calcPriority(newArray);
 
@@ -862,25 +669,14 @@ public class AI {
 
                     System.out.println("Into second if ");
 
-                    int[][] newArray = new int[glass[j].length][glass.length];
-
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            newArray[k][l] = glass[k][l];
-                        }
-                    }
+                    int[][] newArray = copyToNewArray(glass);
 
                     newArray[i][j] = 1;
                     newArray[i - 1][j] = 1;
                     newArray[i - 2][j] = 1;
                     newArray[i][j + 1] = 1;
 
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            System.out.print(newArray[k][l] + "\t");
-                        }
-                        System.out.println();
-                    }
+                    showCurrentArray(newArray);
 
                     double priority = calcPriority(newArray);
 
@@ -905,25 +701,14 @@ public class AI {
 
                     System.out.println("Into first if");
 
-                    int[][] newArray = new int[glass[j].length][glass.length];
-
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            newArray[k][l] = glass[k][l];
-                        }
-                    }
+                    int[][] newArray = copyToNewArray(glass);
 
                     newArray[i - 1][j] = 1;
                     newArray[i - 2][j] = 1;
                     newArray[i - 2][j + 1] = 1;
                     newArray[i - 2][j + 2] = 1;
 
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            System.out.print(newArray[k][l] + "\t");
-                        }
-                        System.out.println();
-                    }
+                    showCurrentArray(newArray);
 
                     double priority = calcPriority(newArray);
 
@@ -940,28 +725,16 @@ public class AI {
 
                     System.out.println("Into second if ");
 
-                    int[][] newArray = new int[glass[j].length][glass.length];
-
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            newArray[k][l] = glass[k][l];
-                        }
-                    }
+                    int[][] newArray = copyToNewArray(glass);
 
                     newArray[i][j] = 1;
                     newArray[i - 1][j] = 1;
                     newArray[i - 1][j + 1] = 1;
                     newArray[i - 1][j + 2] = 1;
 
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            System.out.print(newArray[k][l] + "\t");
-                        }
-                        System.out.println();
-                    }
+                    showCurrentArray(newArray);
 
                     double priority = calcPriority(newArray);
-
 
                     resultMapRotation1.put(priority, new Pair<>(i, j));
 
@@ -982,28 +755,16 @@ public class AI {
 
                     System.out.println("Into first if");
 
-                    int[][] newArray = new int[glass[j].length][glass.length];
-
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            newArray[k][l] = glass[k][l];
-                        }
-                    }
+                    int[][] newArray = copyToNewArray(glass);
 
                     newArray[i - 1][j] = 1;
                     newArray[i - 2][j] = 1;
                     newArray[i - 3][j] = 1;
                     newArray[i - 3][j - 1] = 1;
 
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            System.out.print(newArray[k][l] + "\t");
-                        }
-                        System.out.println();
-                    }
+                    showCurrentArray(newArray);
 
                     double priority = calcPriority(newArray);
-
 
                     resultMapRotation2.put(priority, new Pair<>(i, j));
 
@@ -1016,28 +777,16 @@ public class AI {
 
                     System.out.println("Into second if ");
 
-                    int[][] newArray = new int[glass[j].length][glass.length];
-
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            newArray[k][l] = glass[k][l];
-                        }
-                    }
+                    int[][] newArray = copyToNewArray(glass);
 
                     newArray[i][j] = 1;
                     newArray[i - 1][j] = 1;
                     newArray[i - 2][j] = 1;
                     newArray[i - 2][j - 1] = 1;
 
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            System.out.print(newArray[k][l] + "\t");
-                        }
-                        System.out.println();
-                    }
+                    showCurrentArray(newArray);
 
                     double priority = calcPriority(newArray);
-
 
                     resultMapRotation2.put(priority, new Pair<>(i, j));
 
@@ -1061,28 +810,16 @@ public class AI {
 
                     System.out.println("Into first if");
 
-                    int[][] newArray = new int[glass[j].length][glass.length];
-
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            newArray[k][l] = glass[k][l];
-                        }
-                    }
+                    int[][] newArray = copyToNewArray(glass);
 
                     newArray[i - 1][j] = 1;
                     newArray[i - 1][j + 1] = 1;
                     newArray[i - 1][j + 2] = 1;
                     newArray[i - 2][j + 2] = 1;
 
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            System.out.print(newArray[k][l] + "\t");
-                        }
-                        System.out.println();
-                    }
+                    showCurrentArray(newArray);
 
                     double priority = calcPriority(newArray);
-
 
                     resultMapRotation3.put(priority, new Pair<>(i, j));
 
@@ -1098,28 +835,16 @@ public class AI {
 
                     System.out.println("Into second if ");
 
-                    int[][] newArray = new int[glass[j].length][glass.length];
-
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            newArray[k][l] = glass[k][l];
-                        }
-                    }
+                    int[][] newArray = copyToNewArray(glass);
 
                     newArray[i][j] = 1;
                     newArray[i][j + 1] = 1;
                     newArray[i][j + 2] = 1;
                     newArray[i - 1][j + 2] = 1;
 
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            System.out.print(newArray[k][l] + "\t");
-                        }
-                        System.out.println();
-                    }
+                    showCurrentArray(newArray);
 
                     double priority = calcPriority(newArray);
-
 
                     resultMapRotation3.put(priority, new Pair<>(i, j));
 
@@ -1169,12 +894,10 @@ public class AI {
         return result;
     }
 
-    public Result calcS(int[][] glass) {
+    private Result calcS(int[][] glass) {
 
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation0 = new HashMap<>();
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation1 = new HashMap<>();
-
-        Result result = new Result();
 
         //                  __
         // перебор для   __|
@@ -1191,28 +914,16 @@ public class AI {
 
                     System.out.println("Into first if");
 
-                    int[][] newArray = new int[glass[j].length][glass.length];
-
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            newArray[k][l] = glass[k][l];
-                        }
-                    }
+                    int[][] newArray = copyToNewArray(glass);
 
                     newArray[i - 1][j] = 1;
                     newArray[i - 1][j + 1] = 1;
                     newArray[i - 2][j + 1] = 1;
                     newArray[i - 2][j + 2] = 1;
 
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            System.out.print(newArray[k][l] + "\t");
-                        }
-                        System.out.println();
-                    }
+                    showCurrentArray(newArray);
 
                     double priority = calcPriority(newArray);
-
 
                     resultMapRotation0.put(priority, new Pair<>(i, j));
 
@@ -1227,28 +938,16 @@ public class AI {
 
                     System.out.println("Into second if ");
 
-                    int[][] newArray = new int[glass[j].length][glass.length];
-
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            newArray[k][l] = glass[k][l];
-                        }
-                    }
+                    int[][] newArray = copyToNewArray(glass);
 
                     newArray[i][j] = 1;
                     newArray[i][j + 1] = 1;
                     newArray[i - 1][j + 1] = 1;
                     newArray[i - 1][j + 2] = 1;
 
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            System.out.print(newArray[k][l] + "\t");
-                        }
-                        System.out.println();
-                    }
+                    showCurrentArray(newArray);
 
                     double priority = calcPriority(newArray);
-
 
                     resultMapRotation0.put(priority, new Pair<>(i, j));
 
@@ -1270,25 +969,14 @@ public class AI {
 
                     System.out.println("Into first if");
 
-                    int[][] newArray = new int[glass[j].length][glass.length];
-
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            newArray[k][l] = glass[k][l];
-                        }
-                    }
+                    int[][] newArray = copyToNewArray(glass);
 
                     newArray[i - 1][j] = 1;
                     newArray[i - 2][j] = 1;
                     newArray[i - 2][j - 1] = 1;
                     newArray[i - 3][j - 1] = 1;
 
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            System.out.print(newArray[k][l] + "\t");
-                        }
-                        System.out.println();
-                    }
+                    showCurrentArray(newArray);
 
                     double priority = calcPriority(newArray);
 
@@ -1305,35 +993,22 @@ public class AI {
 
                     System.out.println("Into second if ");
 
-                    int[][] newArray = new int[glass[j].length][glass.length];
-
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            newArray[k][l] = glass[k][l];
-                        }
-                    }
+                    int[][] newArray = copyToNewArray(glass);
 
                     newArray[i][j] = 1;
                     newArray[i - 1][j] = 1;
                     newArray[i - 1][j - 1] = 1;
                     newArray[i - 2][j - 1] = 1;
 
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            System.out.print(newArray[k][l] + "\t");
-                        }
-                        System.out.println();
-                    }
+                    showCurrentArray(newArray);
 
                     double priority = calcPriority(newArray);
-
 
                     resultMapRotation1.put(priority, new Pair<>(i, j));
 
                 }
             }
         }
-
 
         double maxPriorityRotation0 = Collections.min(resultMapRotation0.keySet());
         double maxPriorityRotation1 = Collections.min(resultMapRotation1.keySet());
@@ -1353,12 +1028,10 @@ public class AI {
         return result;
     }
 
-    public Result calcZ(int[][] glass) {
+    private Result calcZ(int[][] glass) {
 
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation0 = new HashMap<>();
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation1 = new HashMap<>();
-
-        Result result = new Result();
 
         //               __
         // перебор для     |__
@@ -1375,25 +1048,14 @@ public class AI {
 
                     System.out.println("Into first if");
 
-                    int[][] newArray = new int[glass[j].length][glass.length];
-
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            newArray[k][l] = glass[k][l];
-                        }
-                    }
+                    int[][] newArray = copyToNewArray(glass);
 
                     newArray[i - 1][j] = 1;
                     newArray[i - 1][j + 1] = 1;
                     newArray[i - 2][j] = 1;
                     newArray[i - 2][j - 1] = 1;
 
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            System.out.print(newArray[k][l] + "\t");
-                        }
-                        System.out.println();
-                    }
+                    showCurrentArray(newArray);
 
                     double priority = calcPriority(newArray);
 
@@ -1411,25 +1073,14 @@ public class AI {
 
                     System.out.println("Into second if ");
 
-                    int[][] newArray = new int[glass[j].length][glass.length];
-
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            newArray[k][l] = glass[k][l];
-                        }
-                    }
+                    int[][] newArray = copyToNewArray(glass);
 
                     newArray[i][j] = 1;
                     newArray[i][j + 1] = 1;
                     newArray[i - 1][j] = 1;
                     newArray[i - 1][j - 1] = 1;
 
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            System.out.print(newArray[k][l] + "\t");
-                        }
-                        System.out.println();
-                    }
+                    showCurrentArray(newArray);
 
                     double priority = calcPriority(newArray);
 
@@ -1454,28 +1105,16 @@ public class AI {
 
                     System.out.println("Into first if");
 
-                    int[][] newArray = new int[glass[j].length][glass.length];
-
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            newArray[k][l] = glass[k][l];
-                        }
-                    }
+                    int[][] newArray = copyToNewArray(glass);
 
                     newArray[i - 1][j] = 1;
                     newArray[i - 2][j] = 1;
                     newArray[i - 2][j + 1] = 1;
                     newArray[i - 3][j + 1] = 1;
 
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            System.out.print(newArray[k][l] + "\t");
-                        }
-                        System.out.println();
-                    }
+                    showCurrentArray(newArray);
 
                     double priority = calcPriority(newArray);
-
 
                     resultMapRotation1.put(priority, new Pair<>(i, j));
 
@@ -1489,35 +1128,22 @@ public class AI {
 
                     System.out.println("Into second if ");
 
-                    int[][] newArray = new int[glass[j].length][glass.length];
-
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            newArray[k][l] = glass[k][l];
-                        }
-                    }
+                    int[][] newArray = copyToNewArray(glass);
 
                     newArray[i][j] = 1;
                     newArray[i - 1][j] = 1;
                     newArray[i - 1][j + 1] = 1;
                     newArray[i - 2][j + 1] = 1;
 
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            System.out.print(newArray[k][l] + "\t");
-                        }
-                        System.out.println();
-                    }
+                    showCurrentArray(newArray);
 
                     double priority = calcPriority(newArray);
-
 
                     resultMapRotation1.put(priority, new Pair<>(i, j));
 
                 }
             }
         }
-
 
         double maxPriorityRotation0 = Collections.min(resultMapRotation0.keySet());
         double maxPriorityRotation1 = Collections.min(resultMapRotation1.keySet());
@@ -1537,14 +1163,12 @@ public class AI {
         return result;
     }
 
-    public Result calcT(int[][] glass) {
+    private Result calcT(int[][] glass) {
 
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation0 = new HashMap<>();
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation1 = new HashMap<>();
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation2 = new HashMap<>();
         HashMap<Double, Pair<Integer, Integer>> resultMapRotation3 = new HashMap<>();
-
-        Result result = new Result();
 
         // перебор для  _|_
         //
@@ -1561,28 +1185,16 @@ public class AI {
 
                     System.out.println("Into first if");
 
-                    int[][] newArray = new int[glass[j].length][glass.length];
-
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            newArray[k][l] = glass[k][l];
-                        }
-                    }
+                    int[][] newArray = copyToNewArray(glass);
 
                     newArray[i - 1][j] = 1;
                     newArray[i - 1][j + 1] = 1;
                     newArray[i - 1][j + 2] = 1;
                     newArray[i - 2][j + 1] = 1;
 
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            System.out.print(newArray[k][l] + "\t");
-                        }
-                        System.out.println();
-                    }
+                    showCurrentArray(newArray);
 
                     double priority = calcPriority(newArray);
-
 
                     resultMapRotation0.put(priority, new Pair<>(i, j));
 
@@ -1598,25 +1210,14 @@ public class AI {
 
                     System.out.println("Into second if ");
 
-                    int[][] newArray = new int[glass[j].length][glass.length];
-
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            newArray[k][l] = glass[k][l];
-                        }
-                    }
+                    int[][] newArray = copyToNewArray(glass);
 
                     newArray[i][j] = 1;
                     newArray[i][j + 1] = 1;
                     newArray[i][j + 2] = 1;
                     newArray[i - 1][j + 1] = 1;
 
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            System.out.print(newArray[k][l] + "\t");
-                        }
-                        System.out.println();
-                    }
+                    showCurrentArray(newArray);
 
                     double priority = calcPriority(newArray);
 
@@ -1640,28 +1241,16 @@ public class AI {
 
                     System.out.println("Into first if");
 
-                    int[][] newArray = new int[glass[j].length][glass.length];
-
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            newArray[k][l] = glass[k][l];
-                        }
-                    }
+                    int[][] newArray = copyToNewArray(glass);
 
                     newArray[i - 1][j] = 1;
                     newArray[i - 2][j] = 1;
                     newArray[i - 3][j] = 1;
                     newArray[i - 2][j + 1] = 1;
 
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            System.out.print(newArray[k][l] + "\t");
-                        }
-                        System.out.println();
-                    }
+                    showCurrentArray(newArray);
 
                     double priority = calcPriority(newArray);
-
 
                     resultMapRotation1.put(priority, new Pair<>(i, j));
 
@@ -1674,28 +1263,16 @@ public class AI {
 
                     System.out.println("Into second if ");
 
-                    int[][] newArray = new int[glass[j].length][glass.length];
-
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            newArray[k][l] = glass[k][l];
-                        }
-                    }
+                    int[][] newArray = copyToNewArray(glass);
 
                     newArray[i][j] = 1;
                     newArray[i - 1][j] = 1;
                     newArray[i - 2][j] = 1;
                     newArray[i - 1][j + 1] = 1;
 
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            System.out.print(newArray[k][l] + "\t");
-                        }
-                        System.out.println();
-                    }
+                    showCurrentArray(newArray);
 
                     double priority = calcPriority(newArray);
-
 
                     resultMapRotation1.put(priority, new Pair<>(i, j));
 
@@ -1717,25 +1294,14 @@ public class AI {
 
                     System.out.println("Into first if");
 
-                    int[][] newArray = new int[glass[j].length][glass.length];
-
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            newArray[k][l] = glass[k][l];
-                        }
-                    }
+                    int[][] newArray = copyToNewArray(glass);
 
                     newArray[i - 1][j] = 1;
                     newArray[i - 2][j] = 1;
                     newArray[i - 2][j - 1] = 1;
                     newArray[i - 2][j + 1] = 1;
 
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            System.out.print(newArray[k][l] + "\t");
-                        }
-                        System.out.println();
-                    }
+                    showCurrentArray(newArray);
 
                     double priority = calcPriority(newArray);
 
@@ -1752,25 +1318,14 @@ public class AI {
 
                     System.out.println("Into second if ");
 
-                    int[][] newArray = new int[glass[j].length][glass.length];
-
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            newArray[k][l] = glass[k][l];
-                        }
-                    }
+                    int[][] newArray = copyToNewArray(glass);
 
                     newArray[i][j] = 1;
                     newArray[i - 1][j] = 1;
                     newArray[i - 1][j - 1] = 1;
                     newArray[i - 1][j + 1] = 1;
 
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            System.out.print(newArray[k][l] + "\t");
-                        }
-                        System.out.println();
-                    }
+                    showCurrentArray(newArray);
 
                     double priority = calcPriority(newArray);
 
@@ -1794,25 +1349,14 @@ public class AI {
 
                     System.out.println("Into first if");
 
-                    int[][] newArray = new int[glass[j].length][glass.length];
-
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            newArray[k][l] = glass[k][l];
-                        }
-                    }
+                    int[][] newArray = copyToNewArray(glass);
 
                     newArray[i - 1][j] = 1;
                     newArray[i - 2][j] = 1;
                     newArray[i - 3][j] = 1;
                     newArray[i - 2][j - 1] = 1;
 
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            System.out.print(newArray[k][l] + "\t");
-                        }
-                        System.out.println();
-                    }
+                    showCurrentArray(newArray);
 
                     double priority = calcPriority(newArray);
 
@@ -1828,25 +1372,14 @@ public class AI {
 
                     System.out.println("Into second if ");
 
-                    int[][] newArray = new int[glass[j].length][glass.length];
-
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            newArray[k][l] = glass[k][l];
-                        }
-                    }
+                    int[][] newArray = copyToNewArray(glass);
 
                     newArray[i][j] = 1;
                     newArray[i - 1][j] = 1;
                     newArray[i - 2][j] = 1;
                     newArray[i - 1][j - 1] = 1;
 
-                    for (int k = 0; k < glass.length; k++) {
-                        for (int l = 0; l < glass[k].length; l++) {
-                            System.out.print(newArray[k][l] + "\t");
-                        }
-                        System.out.println();
-                    }
+                    showCurrentArray(newArray);
 
                     double priority = calcPriority(newArray);
 
@@ -1908,11 +1441,36 @@ public class AI {
                 if (glass[i][j] != 0) {
                     flag = false;
 
+                    break;
                 }
             }
         }
 
         return flag;
+    }
+
+    private void showCurrentArray (int [][] array){
+
+        for (int[] ints : array) {
+            for (int anInt : ints) {
+                System.out.print(anInt + "\t");
+            }
+            System.out.println();
+        }
+
+    }
+
+    private int[][] copyToNewArray(int[][] glass) {
+
+        int[][] newArray = new int[18][18];
+
+        for (int i = 0; i < glass.length; i++) {
+            for (int j = 0; j < glass[i].length; j++) {
+                newArray[i][j] = glass[i][j];
+            }
+        }
+
+        return newArray;
     }
 
 }
