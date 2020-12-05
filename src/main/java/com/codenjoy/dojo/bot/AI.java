@@ -57,10 +57,10 @@ public class AI {
 
     private double calcPriority(int[][] newGlass) {
 
-        final int HEIGHT_MULTIPLIER = 10;
-        final int HOLES_MULTIPLIER = 20;
-        final int WELLS_MULTIPLIER = 5;
-        final int LINES_MULTIPLIER = 1;
+        final double HEIGHT_MULTIPLIER = 10.0;
+        final double HOLES_MULTIPLIER = 20.0;
+        final double WELLS_MULTIPLIER = 5.0;
+        final double LINES_MULTIPLIER = 0.5;
 
         int fullLines = 0;
         int maxHeight = 0;
@@ -70,7 +70,7 @@ public class AI {
 
         double priority;
 
-        for (int i = newGlass.length - 1; i > 0; i--) {
+        for (int i = newGlass.length - 1; i > 3; i--) {
 
             List<Integer> lineChecker = new ArrayList<>();
 
@@ -111,11 +111,17 @@ public class AI {
             }
 
         }
+        if (fullLines != 0) {
+            priority = (LINES_MULTIPLIER/fullLines) *
+                    (maxHeight * HEIGHT_MULTIPLIER +
+                    numberOfHoles * HOLES_MULTIPLIER +
+                    numberOfWells * WELLS_MULTIPLIER);
+        } else {
+            priority = maxHeight * HEIGHT_MULTIPLIER +
+                        numberOfHoles * HOLES_MULTIPLIER +
+                        numberOfWells * WELLS_MULTIPLIER;
+        }
 
-        priority = maxHeight * HEIGHT_MULTIPLIER +
-                numberOfHoles * HOLES_MULTIPLIER +
-                numberOfWells * WELLS_MULTIPLIER +
-                fullLines * LINES_MULTIPLIER;
 
         System.out.println(priority);
 
@@ -402,7 +408,7 @@ public class AI {
         } else {
             Pair<Integer, Integer> theBestPair = resultMapRotation1.get(maxPriorityRotation1);
             result.setRotation(1); // один поворот на 90
-            result.setX(theBestPair.getValue()); // координата X
+            result.setX(theBestPair.getValue() + 2); // координата X
         }
 
         System.out.println(result);
@@ -737,13 +743,13 @@ public class AI {
         if (maxPriority == maxPriorityRotation0) {
             Pair<Integer, Integer> theBestPair = resultMapRotation0.get(maxPriorityRotation0);
             result.setRotation(0);
-            result.setX(theBestPair.getValue());
+            result.setX(theBestPair.getValue() + 1);
         }
 
         if (maxPriority == maxPriorityRotation1) {
             Pair<Integer, Integer> theBestPair = resultMapRotation1.get(maxPriorityRotation1);
             result.setRotation(1);
-            result.setX(theBestPair.getValue());
+            result.setX(theBestPair.getValue() + 1);
         }
 
         if (maxPriority == maxPriorityRotation2) {
@@ -755,7 +761,7 @@ public class AI {
         if (maxPriority == maxPriorityRotation3) {
             Pair<Integer, Integer> theBestPair = resultMapRotation3.get(maxPriorityRotation3);
             result.setRotation(3);
-            result.setX(theBestPair.getValue());
+            result.setX(theBestPair.getValue() - 1);
         }
 
         System.out.println(result);
@@ -1095,7 +1101,7 @@ public class AI {
         if (maxPriority == maxPriorityRotation1) {
             Pair<Integer, Integer> theBestPair = resultMapRotation1.get(maxPriorityRotation1);
             result.setRotation(1);
-            result.setX(theBestPair.getValue());
+            result.setX(theBestPair.getValue() + 1);
         }
 
         if (maxPriority == maxPriorityRotation2) {
@@ -1107,7 +1113,7 @@ public class AI {
         if (maxPriority == maxPriorityRotation3) {
             Pair<Integer, Integer> theBestPair = resultMapRotation3.get(maxPriorityRotation3);
             result.setRotation(3);
-            result.setX(theBestPair.getValue());
+            result.setX(theBestPair.getValue() + 1);
         }
 
         System.out.println(result);
@@ -1283,11 +1289,11 @@ public class AI {
         if (maxPriorityRotation0 < maxPriorityRotation1) {
             Pair<Integer, Integer> theBestPair = resultMapRotation0.get(maxPriorityRotation0);
             result.setRotation(0); // без поворота
-            result.setX(theBestPair.getValue()); // координата X
+            result.setX(theBestPair.getValue() + 1); // координата X
         } else {
             Pair<Integer, Integer> theBestPair = resultMapRotation1.get(maxPriorityRotation1);
             result.setRotation(1); // один поворот на 90
-            result.setX(theBestPair.getValue()); // координата X
+            result.setX(theBestPair.getValue() - 1); // координата X
         }
 
         System.out.println(result);
@@ -1799,7 +1805,7 @@ public class AI {
         if (maxPriority == maxPriorityRotation0) {
             Pair<Integer, Integer> theBestPair = resultMapRotation0.get(maxPriorityRotation0);
             result.setRotation(0);
-            result.setX(theBestPair.getValue());
+            result.setX(theBestPair.getValue() + 1);
         }
 
         if (maxPriority == maxPriorityRotation1) {

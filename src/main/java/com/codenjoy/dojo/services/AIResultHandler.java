@@ -13,6 +13,18 @@ public class AIResultHandler {
         List<Command> commands = new LinkedList<>();
         int x = board.getCurrentFigurePoint().getX();
 
+        int rotation = result.getRotation();
+
+        if (rotation == 1) {
+            commands.add(ROTATE_CLOCKWISE_90);
+        }
+        if (rotation == 2) {
+            commands.add(ROTATE_CLOCKWISE_180);
+        }
+        if (rotation == 3) {
+            commands.add(ROTATE_CLOCKWISE_270);
+        }
+
         int resultX = result.getX();
         if (resultX < x) {
             for (int i = 0; i < Math.abs(resultX - x); i++) {
@@ -25,17 +37,6 @@ public class AIResultHandler {
             }
         }
 
-        int rotation = result.getRotation();
-
-        if (rotation == 1) {
-            commands.add(ROTATE_CLOCKWISE_90);
-        }
-        if (rotation == 2) {
-            commands.add(ROTATE_CLOCKWISE_180);
-        }
-        if (rotation == 3) {
-            commands.add(ROTATE_CLOCKWISE_270);
-        }
 
         commands.add(DOWN);
 

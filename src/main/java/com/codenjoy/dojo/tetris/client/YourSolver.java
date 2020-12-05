@@ -5,11 +5,10 @@ import com.codenjoy.dojo.client.AbstractJsonSolver;
 import com.codenjoy.dojo.client.WebSocketRunner;
 import com.codenjoy.dojo.services.Command;
 import com.codenjoy.dojo.services.Dice;
-import com.codenjoy.dojo.tetris.model.Elements;
-import com.codenjoy.dojo.tetris.model.Glass;
-import com.codenjoy.dojo.tetris.model.Result;
+import com.codenjoy.dojo.tetris.model.*;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import static com.codenjoy.dojo.services.AIResultHandler.getCommands;
@@ -61,6 +60,19 @@ public class YourSolver extends AbstractJsonSolver<Board> {
 //        List<Command> answerList = getAnswerList(board);
         Elements currentFigureType = board.getCurrentFigureType();
         Glass glass = parse(board.getData());
+
+        List <Layer> layers = glass.getLayers();
+        for (Layer layer : layers) {
+            List <Cell> cells = layer.getCells();
+            for (Cell cell : cells) {
+                if (cell.isFilled()) {
+                    System.out.print("O\t");
+                } else {
+                    System.out.print(".\t");
+                }
+            }
+            System.out.println();
+        }
         int[][] ints = ai.glassToArray(glass);
         Result result = null;
 
