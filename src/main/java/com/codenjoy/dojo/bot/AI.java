@@ -155,7 +155,7 @@ public class AI {
     }
 
 
-    public Result calcO(int[][] glass) {
+    private Result calcO(int[][] glass) {
 
         HashMap<Double, Pair<Integer, Integer>> resultMap = new HashMap<>();
 
@@ -173,7 +173,8 @@ public class AI {
 
                 if ((glass[i][j] == 1) && (glass[i - 1][j + 1] == 0)
                         && (glass[i - 2][j] == 0)
-                        && (glass[i - 2][j + 1] == 0)) {
+                        && (glass[i - 2][j + 1] == 0)
+                        && isFreeAbove(glass, (i - 2),(j + 1),(j + 1) )) {
 
                     System.out.println("Into first if");
 
@@ -207,7 +208,8 @@ public class AI {
 
                 if ((i == glass[j].length - 1) && (glass[i][j] == 0)
                         && (glass[i][j + 1] == 0)
-                        && (glass[i - 1][j + 1] == 0)) {
+                        && (glass[i - 1][j + 1] == 0)
+                        && isFreeAbove(glass, (i - 1),(j + 1),(j + 1) )) {
 
                     System.out.println("Into second if ");
 
@@ -342,7 +344,8 @@ public class AI {
 
                 if ((glass[i][j] == 1) && (glass[i - 1][j + 1] == 0)
                         && (glass[i - 1][j + 2] == 0)
-                        && (glass[i - 1][j + 3] == 0)) {
+                        && (glass[i - 1][j + 3] == 0)
+                        && isFreeAbove(glass, (i - 1),(j + 1),(j + 3) )) {
 
                     System.out.println("Into first if");
 
@@ -377,7 +380,8 @@ public class AI {
                 if ((i == glass[j].length - 1) && (glass[i][j] == 0)
                         && (glass[i][j + 1] == 0)
                         && (glass[i][j + 2] == 0)
-                        && (glass[i][j + 3] == 0)) {
+                        && (glass[i][j + 3] == 0)
+                        && isFreeAbove(glass, (i),(j + 1),(j + 3) )) {
 
                     System.out.println("Into second if ");
 
@@ -460,7 +464,8 @@ public class AI {
 
                 if ((glass[i][j] == 1) && (glass[i - 1][j + 1] == 0)
                         && (glass[i - 2][j + 1] == 0)
-                        && (glass[i - 3][j + 1] == 0)) {
+                        && (glass[i - 3][j + 1] == 0)
+                        && isFreeAbove(glass, (i - 3),(j + 1),(j + 1) )) {
 
                     System.out.println("Into first if");
 
@@ -495,7 +500,8 @@ public class AI {
                 if ((i == glass[j].length - 1) && (glass[i][j] == 0)
                         && (glass[i][j + 1] == 0)
                         && (glass[i - 1][j + 1] == 0)
-                        && (glass[i - 2][j + 1] == 0)) {
+                        && (glass[i - 2][j + 1] == 0)
+                        && isFreeAbove(glass, (i - 2),(j + 1),(j + 1) )) {
 
                     System.out.println("Into second if ");
 
@@ -536,7 +542,8 @@ public class AI {
             for (int i = 2; i < glass[j].length; i++) {
 
                 if ((glass[i][j] == 1) && (glass[i - 1][j + 1] == 0)
-                        && (glass[i - 1][j + 2] == 0)) {
+                        && (glass[i - 1][j + 2] == 0)
+                        && isFreeAbove(glass, (i - 1),(j + 1),(j + 2) )) {
 
                     System.out.println("Into first if");
 
@@ -570,7 +577,8 @@ public class AI {
 
                 if ((i == glass[j].length - 1) && (glass[i][j] == 0)
                         && (glass[i][j + 1] == 0)
-                        && (glass[i][j + 2] == 0)) {
+                        && (glass[i][j + 2] == 0)
+                        && isFreeAbove(glass, i, (j + 1), (j + 2) )) {
 
                     System.out.println("Into second if ");
 
@@ -611,7 +619,8 @@ public class AI {
 
             for (int i = 3; i < glass[j].length; i++) {
 
-                if ((glass[i][j] == 1) && (glass[i - 3][j + 1] == 0)) {
+                if ((glass[i][j] == 1) && (glass[i - 3][j + 1] == 0)
+                        && isFreeAbove(glass, (i - 3),(j + 1),(j + 1) )) {
 
                     System.out.println("Into first if");
 
@@ -644,7 +653,8 @@ public class AI {
                 }
 
                 if ((i == glass[j].length - 1) && (glass[i][j] == 0)
-                        && (glass[i - 2][j + 1] == 0)) {
+                        && (glass[i - 2][j + 1] == 0)
+                        && isFreeAbove(glass, (i - 2),(j + 1),(j + 1) )) {
 
                     System.out.println("Into second if ");
 
@@ -686,7 +696,8 @@ public class AI {
             for (int i = 2; i < glass[j].length; i++) {
 
                 if ((glass[i][j] == 1) && (glass[i - 2][j - 1] == 0)
-                        && (glass[i - 2][j - 2] == 0)) {
+                        && (glass[i - 2][j - 2] == 0)
+                        && isFreeAbove(glass, (i - 2),(j - 2),(j - 1) )) {
 
                     System.out.println("Into first if");
 
@@ -720,7 +731,8 @@ public class AI {
 
                 if ((i == glass[j].length - 1) && (glass[i][j] == 0)
                         && (glass[i - 1][j - 1] == 0)
-                        && (glass[i - 1][j - 2] == 0)) {
+                        && (glass[i - 1][j - 2] == 0)
+                        && isFreeAbove(glass, (i - 1),(j - 2),(j - 1) )) {
 
                     System.out.println("Into second if ");
 
@@ -811,7 +823,8 @@ public class AI {
 
             for (int i = 3; i < glass[j].length; i++) {
 
-                if ((glass[i][j] == 1) && (glass[i - 1][j + 1] == 0)) {
+                if ((glass[i][j] == 1) && (glass[i - 1][j + 1] == 0)
+                        && isFreeAbove(glass, (i - 1),(j + 1),(j + 1) )) {
 
                     System.out.println("Into first if");
 
@@ -844,7 +857,8 @@ public class AI {
                 }
 
                 if ((i == glass[j].length - 1) && (glass[i][j] == 0)
-                        && (glass[i][j + 1] == 0)) {
+                        && (glass[i][j + 1] == 0)
+                        && isFreeAbove(glass, i, (j + 1), (j + 1) )) {
 
                     System.out.println("Into second if ");
 
@@ -886,7 +900,8 @@ public class AI {
             for (int i = 2; i < glass[j].length; i++) {
 
                 if ((glass[i][j] == 1) && (glass[i - 2][j + 1] == 0)
-                        && (glass[i - 2][j + 2] == 0)) {
+                        && (glass[i - 2][j + 2] == 0)
+                        && isFreeAbove(glass, (i - 2),(j + 1),(j + 2) )) {
 
                     System.out.println("Into first if");
 
@@ -920,7 +935,8 @@ public class AI {
 
                 if ((i == glass[j].length - 1) && (glass[i][j] == 0)
                         && (glass[i - 1][j + 1] == 0)
-                        && (glass[i - 1][j + 2] == 0)) {
+                        && (glass[i - 1][j + 2] == 0)
+                        && isFreeAbove(glass, (i - 1),(j + 1),(j + 2) )) {
 
                     System.out.println("Into second if ");
 
@@ -961,7 +977,8 @@ public class AI {
 
             for (int i = 3; i < glass[j].length; i++) {
 
-                if ((glass[i][j] == 1) && (glass[i - 3][j - 1] == 0)) {
+                if ((glass[i][j] == 1) && (glass[i - 3][j - 1] == 0)
+                        && isFreeAbove(glass, (i - 3),(j - 1),(j - 1) )) {
 
                     System.out.println("Into first if");
 
@@ -994,7 +1011,8 @@ public class AI {
                 }
 
                 if ((i == glass[j].length - 1) && (glass[i][j] == 0)
-                        && (glass[i - 2][j - 1] == 0)) {
+                        && (glass[i - 2][j - 1] == 0)
+                        && isFreeAbove(glass, (i - 2),(j - 1),(j - 1) )) {
 
                     System.out.println("Into second if ");
 
@@ -1037,7 +1055,9 @@ public class AI {
 
                 if ((glass[i][j] == 1) && (glass[i - 1][j + 1] == 0)
                         && (glass[i - 1][j + 2] == 0)
-                        && (glass[i - 2][j + 2] == 0)) {
+                        && (glass[i - 2][j + 2] == 0)
+                        && (glass[i - 2][j + 1] == 0)
+                        && isFreeAbove(glass, (i - 2),(j + 1),(j + 2))) {
 
                     System.out.println("Into first if");
 
@@ -1072,7 +1092,9 @@ public class AI {
                 if ((i == glass[j].length - 1) && (glass[i][j] == 0)
                         && (glass[i][j + 1] == 0)
                         && (glass[i][j + 2] == 0)
-                        && (glass[i - 1][j + 2] == 0)) {
+                        && (glass[i - 1][j + 2] == 0)
+                        && (glass[i - 1][j + 1] == 0)
+                        && isFreeAbove(glass, (i - 1),(j + 1),(j + 2) )) {
 
                     System.out.println("Into second if ");
 
@@ -1164,7 +1186,8 @@ public class AI {
 
                 if ((glass[i][j] == 1) && (glass[i - 1][j + 1] == 0)
                         && (glass[i - 2][j + 1] == 0)
-                        && (glass[i - 2][j + 2] == 0)) {
+                        && (glass[i - 2][j + 2] == 0)
+                        && isFreeAbove(glass, (i - 2),(j + 1),(j + 2) )) {
 
                     System.out.println("Into first if");
 
@@ -1199,7 +1222,8 @@ public class AI {
                 if ((i == glass[j].length - 1) && (glass[i][j] == 0)
                         && (glass[i][j + 1] == 0)
                         && (glass[i - 1][j + 1] == 0)
-                        && (glass[i - 1][j + 2] == 0)) {
+                        && (glass[i - 1][j + 2] == 0)
+                        && isFreeAbove(glass, (i - 1),(j + 1),(j + 2) )) {
 
                     System.out.println("Into second if ");
 
@@ -1241,7 +1265,8 @@ public class AI {
             for (int i = 3; i < glass[j].length; i++) {
 
                 if ((glass[i][j] == 1) && (glass[i - 2][j - 1] == 0)
-                        && (glass[i - 3][j - 1] == 0)) {
+                        && (glass[i - 3][j - 1] == 0)
+                        && isFreeAbove(glass, (i - 3),(j - 1),(j - 1) )) {
 
                     System.out.println("Into first if");
 
@@ -1275,7 +1300,8 @@ public class AI {
 
                 if ((i == glass[j].length - 1) && (glass[i][j] == 0)
                         && (glass[i - 1][j - 1] == 0)
-                        && (glass[i - 2][j - 1] == 0)) {
+                        && (glass[i - 2][j - 1] == 0)
+                        && isFreeAbove(glass, (i - 2),(j - 1),(j - 1) )) {
 
                     System.out.println("Into second if ");
 
@@ -1343,7 +1369,9 @@ public class AI {
             for (int i = 2; i < glass[j].length; i++) {
 
                 if ((glass[i][j] == 1) && (glass[i - 1][j + 1] == 0)
-                        && (glass[i - 2][j - 1] == 0)) {
+                        && (glass[i - 2][j - 1] == 0)
+                        && (glass[i - 2][j + 1] == 0)
+                        && isFreeAbove(glass, (i - 2),(j - 1),(j + 1) )) {
 
                     System.out.println("Into first if");
 
@@ -1377,7 +1405,9 @@ public class AI {
 
                 if ((i == glass[j].length - 1) && (glass[i][j] == 0)
                         && (glass[i][j + 1] == 0)
-                        && (glass[i - 1][j - 1] == 0)) {
+                        && (glass[i - 1][j - 1] == 0)
+                        && (glass[i - 1][j + 1] == 0)
+                        && isFreeAbove(glass, (i - 1),(j - 1),(j + 1) )) {
 
                     System.out.println("Into second if ");
 
@@ -1419,7 +1449,8 @@ public class AI {
             for (int i = 3; i < glass[j].length; i++) {
 
                 if ((glass[i][j] == 1) && (glass[i - 2][j + 1] == 0)
-                        && (glass[i - 3][j + 1] == 0)) {
+                        && (glass[i - 3][j + 1] == 0)
+                        && isFreeAbove(glass, (i - 3),(j + 1),(j + 1) )) {
 
                     System.out.println("Into first if");
 
@@ -1453,7 +1484,8 @@ public class AI {
 
                 if ((i == glass[j].length - 1) && (glass[i][j] == 0)
                         && (glass[i - 1][j + 1] == 0)
-                        && (glass[i - 2][j + 1] == 0)) {
+                        && (glass[i - 2][j + 1] == 0)
+                        && isFreeAbove(glass, (i - 2),(j + 1),(j + 1) )) {
 
                     System.out.println("Into second if ");
 
@@ -1523,7 +1555,9 @@ public class AI {
 
                 if ((glass[i][j] == 1) && (glass[i - 1][j + 1] == 0)
                         && (glass[i - 1][j + 2] == 0)
-                        && (glass[i - 2][j + 1] == 0)) {
+                        && (glass[i - 2][j + 1] == 0)
+                        && (glass[i - 2][j + 2] == 0
+                        && isFreeAbove(glass, (i - 2),(j + 1),(j + 2) ))) {
 
                     System.out.println("Into first if");
 
@@ -1558,7 +1592,9 @@ public class AI {
                 if ((i == glass[j].length - 1) && (glass[i][j] == 0)
                         && (glass[i][j + 1] == 0)
                         && (glass[i][j + 2] == 0)
-                        && (glass[i - 1][j + 1] == 0)) {
+                        && (glass[i - 1][j + 1] == 0)
+                        && (glass[i - 1][j + 2] == 0
+                        && isFreeAbove(glass, (i - 1),(j + 1),(j + 2) ))) {
 
                     System.out.println("Into second if ");
 
@@ -1599,7 +1635,8 @@ public class AI {
 
             for (int i = 3; i < glass[j].length; i++) {
 
-                if ((glass[i][j] == 1) && (glass[i - 2][j + 1] == 0)) {
+                if ((glass[i][j] == 1) && (glass[i - 2][j + 1] == 0)
+                        && isFreeAbove(glass, (i - 2),(j + 1),(j + 1) )) {
 
                     System.out.println("Into first if");
 
@@ -1632,7 +1669,8 @@ public class AI {
                 }
 
                 if ((i == glass[j].length - 1) && (glass[i][j] == 0)
-                        && (glass[i - 1][j + 1] == 0)) {
+                        && (glass[i - 1][j + 1] == 0)
+                        && isFreeAbove(glass, (i - 1),(j + 1),(j + 1) )) {
 
                     System.out.println("Into second if ");
 
@@ -1674,7 +1712,8 @@ public class AI {
             for (int i = 2; i < glass[j].length; i++) {
 
                 if ((glass[i][j] == 1) && (glass[i - 2][j - 1] == 0)
-                        && (glass[i - 2][j + 1] == 0)) {
+                        && (glass[i - 2][j + 1] == 0)
+                        && isFreeAbove(glass, (i - 2),(j - 1),(j + 1) )) {
 
                     System.out.println("Into first if");
 
@@ -1708,7 +1747,8 @@ public class AI {
 
                 if ((i == glass[j].length - 1) && (glass[i][j] == 0)
                         && (glass[i - 1][j - 1] == 0)
-                        && (glass[i - 1][j + 1] == 0)) {
+                        && (glass[i - 1][j + 1] == 0)
+                        && isFreeAbove(glass, (i - 1),(j + 1),(j + 2) )) {
 
                     System.out.println("Into second if ");
 
@@ -1749,7 +1789,8 @@ public class AI {
 
             for (int i = 3; i < glass[j].length; i++) {
 
-                if ((glass[i][j] == 1) && (glass[i - 2][j - 1] == 0)) {
+                if ((glass[i][j] == 1) && (glass[i - 2][j - 1] == 0)
+                        && isFreeAbove(glass, (i - 2),(j - 1),(j - 1) )) {
 
                     System.out.println("Into first if");
 
@@ -1782,7 +1823,8 @@ public class AI {
                 }
 
                 if ((i == glass[j].length - 1) && (glass[i][j] == 0)
-                        && (glass[i - 1][j - 1] == 0)) {
+                        && (glass[i - 1][j - 1] == 0)
+                        && isFreeAbove(glass, (i - 1),(j - 1),(j - 1) )) {
 
                     System.out.println("Into second if ");
 
@@ -1855,6 +1897,22 @@ public class AI {
 
         System.out.println(result);
         return result;
+    }
+
+    private boolean isFreeAbove (int [][] glass, int figureUpperLine, int startColumn, int finishColumn) {
+
+        boolean flag = true;
+
+        for (int j = startColumn; j <= finishColumn; j++) {
+            for (int i = figureUpperLine - 1; i > 2; i--) {
+                if (glass[i][j] != 0) {
+                    flag = false;
+
+                }
+            }
+        }
+
+        return flag;
     }
 
 }
