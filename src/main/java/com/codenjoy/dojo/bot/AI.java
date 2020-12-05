@@ -1748,7 +1748,7 @@ public class AI {
                 if ((i == glass[j].length - 1) && (glass[i][j] == 0)
                         && (glass[i - 1][j - 1] == 0)
                         && (glass[i - 1][j + 1] == 0)
-                        && isFreeAbove(glass, (i - 1),(j + 1),(j + 2) )) {
+                        && isFreeAbove(glass, (i - 1),(j - 1),(j + 1с1) )) {
 
                     System.out.println("Into second if ");
 
