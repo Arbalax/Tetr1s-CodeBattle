@@ -9,9 +9,11 @@ import java.util.List;
 public abstract class AbstractCalculator implements Calculator {
     protected Result result;
 
-    private final double HEIGHT_MULTIPLIER = 10.0;
-    private final double HOLES_MULTIPLIER = 20.0;
-    private final double WELLS_MULTIPLIER = 5.0;
+    private final double HEIGHT_MULTIPLIER = 10.0;  //10
+    private final double HOLES_MULTIPLIER = 20.0; //20
+    private final double WELLS_MULTIPLIER = 3.0;  //5
+    private final double WIDE_WELLS_MULTIPLIER = 7.0;
+    private final double LINE_NUMBER_MULTIPLIER = 2.1;  //1
     private final double LINES_MULTIPLIER = 0.5;
 
     public AbstractCalculator() {
@@ -58,6 +60,8 @@ public abstract class AbstractCalculator implements Calculator {
         int maxHeight = 0;
         int numberOfHoles = 0;
         int numberOfWells = 0;
+        int numberOfWideWells = 0;
+        int numberOfCurrentLine = 0;
 
         double priority;
 
@@ -95,6 +99,35 @@ public abstract class AbstractCalculator implements Calculator {
                         && newGlass[i][j - 1] == 1
                 )
                     numberOfWells++;
+
+                // проверка больших колодцы
+
+//                if (j > 0 && j < (newGlass[i].length - 2)
+//                        && newGlass[i][j] == 0
+//                        && newGlass[i - 1][j] == 0
+//                        && newGlass[i][j - 1] == 1
+//                        && newGlass[i][j + 1] == 0
+//                        && newGlass[i][j + 2] == 1
+//                )
+//                    numberOfWideWells++;
+//
+//                if (j == 0 && newGlass[i][j] == 0
+//                        && newGlass[i - 1][j] == 0
+//                        && newGlass[i][j + 1] == 0
+//                        && newGlass[i][j + 2] == 1
+//                )
+//                    numberOfWideWells++;
+//
+//                if (j == (newGlass[i].length - 1) && newGlass[i][j] == 0
+//                        && newGlass[i - 1][j] == 0
+//                        && newGlass[i][j - 1] == 0
+//                        && newGlass[i][j - 2] == 1
+//                )
+//                    numberOfWideWells++;
+
+                // конец проверки
+
+                numberOfCurrentLine = i;
             }
 
             if (Collections.min(lineChecker) == 1) {
@@ -106,12 +139,21 @@ public abstract class AbstractCalculator implements Calculator {
             priority = (LINES_MULTIPLIER / fullLines) *
                     (maxHeight * HEIGHT_MULTIPLIER +
                             numberOfHoles * HOLES_MULTIPLIER +
-                            numberOfWells * WELLS_MULTIPLIER);
+                            numberOfWells * WELLS_MULTIPLIER +
+//                            numberOfWideWells * WIDE_WELLS_MULTIPLIER);
+                            numberOfWideWells * WIDE_WELLS_MULTIPLIER +
+                            LINE_NUMBER_MULTIPLIER/numberOfCurrentLine);
         } else {
             priority = maxHeight * HEIGHT_MULTIPLIER +
                     numberOfHoles * HOLES_MULTIPLIER +
-                    numberOfWells * WELLS_MULTIPLIER;
+                    numberOfWells * WELLS_MULTIPLIER +
+//                    numberOfWideWells * WIDE_WELLS_MULTIPLIER;
+                    numberOfWideWells * WIDE_WELLS_MULTIPLIER +
+                    LINE_NUMBER_MULTIPLIER/numberOfCurrentLine;
         }
+
+        System.out.println("maxHeight = " + maxHeight + "\n" + "numberOfHoles = " + numberOfHoles + "\n" +
+                        "numberOfWells = " + numberOfWells + "\n" + "numberOfCurrentLine = " + numberOfCurrentLine);
 
         System.out.println(priority);
 

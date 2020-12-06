@@ -58,6 +58,7 @@ public class OCalculator extends AbstractCalculator {
 
                     resultMap.put(priority, new Pair<>(i, j));
                 }
+
             }
         }
 
